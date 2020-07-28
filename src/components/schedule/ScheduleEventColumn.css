@@ -1,0 +1,7 @@
+.overlayColumn{
+    min-width: 10ch;
+}
+.innerOverColumn{
+    position: relative;
+    width: inherit;
+}

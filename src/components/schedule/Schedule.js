@@ -1,18 +1,23 @@
-import React from "react";
+import React, {useRef, useState} from "react";
 import './Schedule.css'
 import ScheduleEvent from "./ScheduleEvent";
-const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+import ScheduleContainer from "./ScheduleContainer";
+import ScrollbarSize from "react-scrollbar-size";
+export const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
 
 const Schedule = (props)=>{
 
     const [contentHours,sideHours] = generateDaysInRow({initialHour:6,finalHour:20})
-
+    const [scrollbarMargin, setScrollbarMargin] = useState(0)
+    const scrollbarSizeChange = ({width})=>{
+        setScrollbarMargin(width)
+    }
     return (
         <div className="schedule">
             <div className="scheduleUpper">
                 <div className="emptyTimeCol"></div>
-                <ul className="scheduleDays">
+                <ul className="scheduleDays" style={{marginRight:scrollbarMargin+"px"}}>
                     {DAYS.map((day)=>
                         <li className="scheduleUpperDay column" key={day}><p>{day}</p></li>)}
                 </ul>
@@ -21,19 +26,9 @@ const Schedule = (props)=>{
                 <div className="timeColumn">
                     {sideHours}
                 </div>
-                <div className="scheduleContainer">
-                    <div className="scheduleContent">
-                        {contentHours}
-                    </div>
-                    <div className="scheduleOverlay">
-                        <ScheduleEvent title="Title"
-                                       subtitle="lorem ipsum is a total bro"
-                                       color="#4CAF50"
-                                       lengthInHours={2}/>
-
-                    </div>
-                </div>
+                <ScheduleContainer contentHours={contentHours}/>
             </div>
+            <ScrollbarSize onChange={scrollbarSizeChange} style={{scrollbarWidth:'thin'}}/>
         </div>
     )
 }
@@ -79,7 +74,7 @@ const generateHoursInColumn = ({initialHour, finalHour})=>{
 
 const getHourString = (hour)=>{
     let hourNum = (Math.floor(hour)%12)
-    if(hourNum==0)
+    if(hourNum===0)
         hourNum = 12
     const meridianString = (hour >=12) ? "PM" : "AM"
     return `${hourNum} ${meridianString}`

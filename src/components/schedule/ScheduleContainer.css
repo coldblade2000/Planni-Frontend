@@ -1,0 +1,25 @@
+.column{
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+.scheduleContainer{
+    flex-grow: 1;
+    margin-left: 2px;
+    position: relative;
+}
+.scheduleContainer * {
+    left: 0;
+    right: 0;
+}
+.scheduleContent{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+}
+.scheduleOverlay{
+    height: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+}

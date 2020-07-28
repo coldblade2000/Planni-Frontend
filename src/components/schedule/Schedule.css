@@ -1,20 +1,23 @@
 .schedule{
     border: 2px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    overflow-x: scroll;
 }
 .emptyTimeCol{
-    border-right-style: solid;
-    border-right-color: gray;
-    border-right-width: 1px;
-    min-width: 5%;
+    width: 5%;
+    min-width: 50px;
 }
 
 .emptyTimeCol, .scheduleUpperDay{
+
     border-right-style: solid;
     border-right-color: gray;
     border-right-width: 2px;
 }
 
-.scheduleUpper,.scheduleMain{
+.scheduleUpper, .scheduleMain {
     display: flex;
     flex-direction: row;
 }
@@ -22,15 +25,23 @@
     border-bottom-style: solid;
     border-bottom-color: gray;
     border-bottom-width: 2px;
+    max-height: 53px;
 }
 .scheduleMain{
     overflow-y: scroll;
-    scrollbar-width: none;
+    position: relative;
+    scrollbar-width: thin;
 }
 
 .column{
     flex-basis: 0;
     flex-grow: 1;
+    min-width: 10ch;
+}
+
+.scheduleOverlay .column{
+    padding-right: 2px;
+    box-sizing: border-box;
 }
 
 .scheduleDays {
@@ -45,35 +56,23 @@
 .scheduleUpperDay{
     flex-grow: 1;
 }
-.scheduleContainer{
-    width: 95%;
-    position: relative;
-}
-.scheduleContainer * {
-    left: 0;
-    right: 0;
-}
-.scheduleContent{
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-}
-.scheduleOverlay{
-    position: absolute;
-}
+
 .timeColumn{
     width: 5%;
-    border-right-style: solid;
-    border-right-color: gray;
-    border-right-width: 2px;
+    height: inherit;
+    min-width: 50px;
 }
 .hour{
     border-bottom-style: solid;
     border-bottom-color: gray;
     border-bottom-width: 2px;
-    height: 4rem;
+
+    height: 64px; /*4 rem = 64px*/
 }
 .hourNumber{
+    border-right: 2px solid gray;
+    min-width: 50px;
+    width: 5%;
 }
 
 .hourContent{

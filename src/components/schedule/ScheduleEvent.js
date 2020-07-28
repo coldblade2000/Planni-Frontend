@@ -1,14 +1,19 @@
 import React from "react";
 import './ScheduleEvent.css'
+import {HOUR_HEIGHT} from "../../constants/style";
 
-const ScheduleEvent = ({lengthInHours, color, title, subtitle}) =>{
+const ScheduleEvent = ({lengthInMinutes, color, title, subtitle, topOffset}) =>{
     return(
         <div className="eventSticker"
              style={
-                 {backgroundColor:color, height:""+(4*lengthInHours)+"rem"}
+                 {
+                     backgroundColor:color,
+                     height:""+(lengthInMinutes/60*HOUR_HEIGHT)+"px",
+                     top:topOffset+"px"
+                 }
              }>
-            <h4>{title}</h4>
-            <p>{subtitle}</p>
+            <h4 className="stickerTitle">{title}</h4>
+            <p className="stickerSubtitle">{subtitle}</p>
         </div>
     )
 }

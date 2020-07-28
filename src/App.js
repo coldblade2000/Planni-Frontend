@@ -7,10 +7,9 @@ import ScheduleEvent from "./components/schedule/ScheduleEvent";
 function App() {
   return (
     <div className="App">
+        <h1>Banner v2</h1>
         <div className="debugContainer">
             <Schedule/>
-        </div>
-        <div className="debugContainer">
         </div>
     </div>
   );
