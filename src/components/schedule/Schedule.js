@@ -2,22 +2,24 @@ import React, {useState} from "react";
 import './Schedule.css'
 import ScheduleContainer from "./ScheduleContainer";
 import ScrollbarSize from "react-scrollbar-size";
+
 export const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
 
-const Schedule = (props)=>{
+const Schedule = (props) => {
 
-    const [contentHours,sideHours] = generateDaysInRow({initialHour:6,finalHour:20})
+    const [contentHours, sideHours] = generateDaysInRow({initialHour: 6, finalHour: 20})
     const [scrollbarMargin, setScrollbarMargin] = useState(0)
-    const scrollbarSizeChange = ({width})=>{
+    const scrollbarSizeChange = ({width}) => {
         setScrollbarMargin(width)
     }
+
     return (
         <div className="schedule">
             <div className="scheduleUpper">
                 <div className="emptyTimeCol"></div>
-                <ul className="scheduleDays" style={{marginRight:scrollbarMargin+"px"}}>
-                    {DAYS.map((day)=>
+                <ul className="scheduleDays" style={{marginRight: scrollbarMargin + "px"}}>
+                    {DAYS.map((day) =>
                         <li className="scheduleUpperDay column" key={day}><p>{day}</p></li>)}
                 </ul>
             </div>
@@ -27,13 +29,13 @@ const Schedule = (props)=>{
                 </div>
                 <ScheduleContainer contentHours={contentHours}/>
             </div>
-            <ScrollbarSize onChange={scrollbarSizeChange} style={{scrollbarWidth:'thin'}}/>
+            <ScrollbarSize onChange={scrollbarSizeChange} style={{scrollbarWidth: 'thin'}}/>
         </div>
     )
 }
 
 
-const generateDaysInRow = (hourRangeObject)=>{
+const generateDaysInRow = (hourRangeObject) => {
     const listOfDays = []
     const [contentHours, sideHours] = generateHoursInColumn(hourRangeObject)
     for (const day of DAYS) {
@@ -46,16 +48,16 @@ const generateDaysInRow = (hourRangeObject)=>{
     return [listOfDays, sideHours]
 }
 
-const generateHoursInColumn = ({initialHour, finalHour})=>{
-    if(finalHour<initialHour){
+const generateHoursInColumn = ({initialHour, finalHour}) => {
+    if (finalHour < initialHour) {
         throw new Error("Final hour comes before the initial hour")
     }
-    if (initialHour < 0 || finalHour>=24){
+    if (initialHour < 0 || finalHour >= 24) {
         throw new Error("Hour range is not correct")
     }
     const listOfContentHours = []
     const listOfSideHours = []
-    for (let currentHour = Math.floor(initialHour); currentHour < Math.ceil(finalHour+1); currentHour++) {
+    for (let currentHour = Math.floor(initialHour); currentHour < Math.ceil(finalHour + 1); currentHour++) {
         listOfContentHours.push(
             <div className="hour hourContent" key={currentHour}>
                 <div className="halfHourContent"/>
@@ -71,11 +73,11 @@ const generateHoursInColumn = ({initialHour, finalHour})=>{
     return [listOfContentHours, listOfSideHours]
 }
 
-const getHourString = (hour)=>{
-    let hourNum = (Math.floor(hour)%12)
-    if(hourNum===0)
+const getHourString = (hour) => {
+    let hourNum = (Math.floor(hour) % 12)
+    if (hourNum === 0)
         hourNum = 12
-    const meridianString = (hour >=12) ? "PM" : "AM"
+    const meridianString = (hour >= 12) ? "PM" : "AM"
     return `${hourNum} ${meridianString}`
 }
 
