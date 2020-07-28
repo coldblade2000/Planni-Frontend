@@ -1,6 +1,5 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import './Schedule.css'
-import ScheduleEvent from "./ScheduleEvent";
 import ScheduleContainer from "./ScheduleContainer";
 import ScrollbarSize from "react-scrollbar-size";
 export const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']

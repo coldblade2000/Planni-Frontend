@@ -30,7 +30,6 @@
 .scheduleMain{
     overflow-y: scroll;
     position: relative;
-    scrollbar-width: thin;
 }
 
 .column{
@@ -41,7 +40,6 @@
 
 .scheduleOverlay .column{
     padding-right: 2px;
-    box-sizing: border-box;
 }
 
 .scheduleDays {
