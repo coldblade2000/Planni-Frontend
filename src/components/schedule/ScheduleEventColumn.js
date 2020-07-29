@@ -3,22 +3,22 @@ import {HOUR_HEIGHT} from "../../constants/style";
 import ScheduleEvent from "./ScheduleEvent";
 import "./ScheduleEventColumn.css"
 
-const ScheduleEventColumn = ({stickerArray = []}) => {
+const ScheduleEventColumn = ({stickerArray = [], initialHour}) => {
     return (
         <div className="column overlayColumn">
             <div className="innerOverColumn">
-                {stickerArray.map((sticker) => renderSticker(sticker))}
+                {stickerArray.map((sticker) => renderSticker(sticker, initialHour))}
             </div>
         </div>
     )
 }
 
-const renderSticker = (stickerObject) => {
+const renderSticker = (stickerObject, initialHour) => {
     const [beginHour, beginMinute, endHour, endMinute] =
         returnHourValues(stickerObject.beginTime, stickerObject.endTime)
     console.log(`Begin hour: ${beginHour}, beginMinute: ${beginMinute}, endHour: ${endHour}, endMinute: ${endMinute}`)
     //TODO remove hard-coding of 6-hour offset
-    const topValue = HOUR_HEIGHT * (beginHour - 6)
+    const topValue = HOUR_HEIGHT * (beginHour - initialHour)
     console.log(topValue)
     let durationMins = (endHour * 60 + endMinute - beginHour * 60 + beginMinute)
 

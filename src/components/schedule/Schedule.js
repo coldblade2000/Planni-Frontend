@@ -8,7 +8,7 @@ export const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
 const Schedule = (props) => {
 
-    const [contentHours, sideHours] = generateDaysInRow({initialHour: 6, finalHour: 20})
+    const [contentHours, sideHours] = generateDaysInRow([props.initialHour, props.finalHour] )
     const [scrollbarMargin, setScrollbarMargin] = useState(0)
     const scrollbarSizeChange = ({width}) => {
         setScrollbarMargin(width)
@@ -27,17 +27,21 @@ const Schedule = (props) => {
                 <div className="timeColumn">
                     {sideHours}
                 </div>
-                <ScheduleContainer contentHours={contentHours}/>
+                <ScheduleContainer contentHours={contentHours} initialHour={props.initialHour}/>
             </div>
             <ScrollbarSize onChange={scrollbarSizeChange} style={{scrollbarWidth: 'thin'}}/>
         </div>
     )
 }
+Schedule.defaultProps = {
+    initialHour: 6,
+    finalHour: 20
+}
 
 
-const generateDaysInRow = (hourRangeObject) => {
+const generateDaysInRow = (hourRangeArray) => {
     const listOfDays = []
-    const [contentHours, sideHours] = generateHoursInColumn(hourRangeObject)
+    const [contentHours, sideHours] = generateHoursInColumn(hourRangeArray)
     for (const day of DAYS) {
         listOfDays.push(
             <div className="dayColumn column" key={day}>
@@ -48,7 +52,7 @@ const generateDaysInRow = (hourRangeObject) => {
     return [listOfDays, sideHours]
 }
 
-const generateHoursInColumn = ({initialHour, finalHour}) => {
+const generateHoursInColumn = ([initialHour, finalHour]) => {
     if (finalHour < initialHour) {
         throw new Error("Final hour comes before the initial hour")
     }
