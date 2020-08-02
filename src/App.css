@@ -30,13 +30,12 @@
 
 .debugContainer{
     width: 100%;
-    height: 600px;
+    height: 1000px;
     border: 4px solid blue;
     padding: 15px;
     overflow: hidden;
     display: flex;
     flex-direction: row;
-    justify-content: stretch;
 
 }
 

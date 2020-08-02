@@ -2,6 +2,7 @@
     border: 2px solid lightgray;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     height: inherit;
     overflow-x: scroll;
 }
@@ -70,9 +71,7 @@
     height: 64px; /*4 rem = 64px*/
 }
 .hourNumber{
-    border-right: 2px solid gray;
     min-width: 50px;
-    width: 5%;
 }
 
 .hourContent{

@@ -13,14 +13,14 @@ const ScheduleEventColumn = ({stickerArray = [], initialHour}) => {
     )
 }
 
-const renderSticker = (stickerObject, initialHour) => {
+const renderSticker = (stickerObject, initialscheduleHour) => {
     const [beginHour, beginMinute, endHour, endMinute] =
         returnHourValues(stickerObject.beginTime, stickerObject.endTime)
     console.log(`Begin hour: ${beginHour}, beginMinute: ${beginMinute}, endHour: ${endHour}, endMinute: ${endMinute}`)
-    //TODO remove hard-coding of 6-hour offset
-    const topValue = HOUR_HEIGHT * (beginHour - initialHour)
+    const beginTimeInMinutes = beginHour*60 + beginMinute
+    const topValue = HOUR_HEIGHT * (beginTimeInMinutes - initialscheduleHour*60)/60
     console.log(topValue)
-    let durationMins = (endHour * 60 + endMinute - beginHour * 60 + beginMinute)
+    let durationMins = ((endHour * 60 + endMinute) - (beginHour * 60 + beginMinute))
 
     return <ScheduleEvent key={stickerObject['CRN']}
                           lengthInMinutes={durationMins}

@@ -1,4 +1,4 @@
-import {getRandomColor} from "./constants/style";
+import {getManyRandomColors, getRandomColor} from "./constants/style";
 import {StickerClass} from "./components/schedule/StickerClass";
 
 export const organizeDays = (coursesArray)=>{
@@ -11,8 +11,9 @@ export const organizeDays = (coursesArray)=>{
         'FRI': [],
         'SAT': []
     }
-    for (const course of coursesArray) {
-        const color = getRandomColor()
+    for (let i = 0; i<coursesArray.length; i++) {
+        const course = coursesArray[i]
+        const color = getManyRandomColors(coursesArray.length-1, i)
         for (const meeting of course.meetings) {
             const meetingObj = new StickerClass(course, meeting, color)
             /*const meetingObj = {
