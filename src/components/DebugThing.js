@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import axios from 'axios'
 import {connect} from 'react-redux'
 import {addCourse} from "../actions";
@@ -16,8 +16,12 @@ class CourseForm extends React.Component {
         console.log('A name was submitted: ' + this.state.value);
         event.preventDefault();
 
-        if (this.state.value.length===8){
-            axios.get(`http://localhost:3001/courses/${this.state.value}`).then((res)=>{
+        if (this.state.value.length===8) {
+            axios.get(`http://localhost:3001/courses/`, {
+                params: {
+                    "courseIdentifier": this.state.value
+                }
+            }).then((res) => {
                 console.log(res)
                 for (const course of res.data) {
                     this.props.addCourse(course)
