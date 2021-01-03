@@ -1,9 +1,9 @@
-import React, { useRef, useState} from "react";
+import React, {useRef} from "react";
 import {DAYS} from "./Schedule";
 import "./ScheduleContainer.css"
 import ScheduleEventColumn from "./ScheduleEventColumn";
 import {connect} from "react-redux";
-import {addCourse} from "../../actions";
+import {addCourse} from "../../redux/actions";
 import {organizeDays} from "../../processing";
 
 const ScheduleContainer = (props)=>{

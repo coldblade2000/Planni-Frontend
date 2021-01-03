@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios'
 import {connect} from 'react-redux'
-import {addCourse} from "../actions";
+import {addCourse} from "../redux/actions";
 
 class CourseForm extends React.Component {
     constructor(props) {
