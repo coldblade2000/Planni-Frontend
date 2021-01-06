@@ -1,7 +1,7 @@
 import {getManyRandomColors, getRandomColor} from "./constants/style";
 import {StickerClass} from "./components/schedule/StickerClass";
 
-export const organizeDays = (coursesArray)=>{
+export const organizeDays = (coursesArray = [])=>{
     const meetingDays = {
         'SUN': [],
         'MON': [],

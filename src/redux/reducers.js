@@ -9,6 +9,7 @@ import {
     REMOVED_SECTION,
     SELECTED_PLAN
 } from "./types";
+import {TABS} from "../constants/model";
 
 const displayedCoursesStickers = (courses = [], action) => {
     switch (action.type) {
@@ -47,8 +48,8 @@ const switchUser = (user = null, action) => {
             return user
     }
 }
-const SEARCH = 1
-const changeTab = (tab = SEARCH, action) => {
+
+const changeTab = (tab = TABS.SEARCH, action) => {
     switch (action.type) {
         case CHANGE_TAB:
             return action.payload;

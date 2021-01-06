@@ -19,6 +19,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import {makeStyles} from "@material-ui/core/styles";
 import clsx from "clsx";
+import LeftContentController from "./components/LeftContent/LeftContentController";
 
 
 //https://faizanv.medium.com/authentication-for-your-react-and-express-application-w-json-web-tokens-923515826e0
@@ -113,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
     },
     fixedHeight: {
         height: 240,
-    },
+    }
 }));
 
 function App() {
@@ -155,9 +156,9 @@ function App() {
             <main className={classes.content}>
                 <div className={classes.appBarSpacer}/>
                 <div id="body">
-                    <div className="debugContainer">
-                        <CourseForm/>
-                    </div>
+                    <LeftContentController>
+
+                    </LeftContentController>
                     <div id="scheduleHalf">
                         <Schedule/>
                     </div>

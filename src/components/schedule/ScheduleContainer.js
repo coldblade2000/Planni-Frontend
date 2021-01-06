@@ -3,7 +3,6 @@ import {DAYS} from "./Schedule";
 import "./ScheduleContainer.css"
 import ScheduleEventColumn from "./ScheduleEventColumn";
 import {connect} from "react-redux";
-import {addCourse} from "../../redux/actions";
 import {organizeDays} from "../../processing";
 
 const ScheduleContainer = (props)=>{
@@ -35,4 +34,4 @@ const mapStateToProps = (state)=>{
 }
 
 
-export default connect(mapStateToProps, {addCourse})(ScheduleContainer)
+export default connect(mapStateToProps)(ScheduleContainer)
