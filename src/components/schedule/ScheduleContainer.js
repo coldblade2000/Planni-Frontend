@@ -30,7 +30,7 @@ const ScheduleContainer = (props)=>{
 
 
 const mapStateToProps = (state)=>{
-    return {courseArray : state.courses}
+    return {courseArray: state.displayedCourses}
 }
 
 

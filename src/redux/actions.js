@@ -3,6 +3,7 @@ import {
     ADDED_SECTION,
     CHANGE_TAB,
     CHANGE_USER,
+    COURSE_SEARCH_COMPLETE,
     HIGHLIGHT_SECTION,
     REMOVED_BLACKOUT,
     REMOVED_SECTION,
@@ -34,6 +35,13 @@ export const removedSection = (section) => {
     return {
         type: REMOVED_SECTION,
         payload: section
+    }
+}
+
+export const courseSearchCompleted = (courses) => {
+    return {
+        type: COURSE_SEARCH_COMPLETE,
+        payload: courses
     }
 }
 

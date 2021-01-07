@@ -4,6 +4,7 @@ import {
     ADDED_SECTION,
     CHANGE_TAB,
     CHANGE_USER,
+    COURSE_SEARCH_COMPLETE,
     HIGHLIGHT_SECTION,
     REMOVED_BLACKOUT,
     REMOVED_SECTION,
@@ -66,11 +67,23 @@ const changePlan = (plan = null, action) => {
     }
 }
 
+const foundSearchCourses = (courses = [], action) => {
+    switch (action.type) {
+        case COURSE_SEARCH_COMPLETE:
+            return action.payload;
+        case CHANGE_USER:
+            return [];
+        default:
+            return courses
+    }
+}
+
 export default combineReducers({
     displayedCourses: displayedCoursesStickers,
     displayedBlackouts: displayedBlackouts,
     user: switchUser,
     tab: changeTab,
-    selectedPlan: changePlan
+    selectedPlan: changePlan,
+    searchCourses: foundSearchCourses
 
 })

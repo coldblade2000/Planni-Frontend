@@ -5,12 +5,29 @@ const SearchPanel = (props)=>{
     const [CRN, setCRN] = useState(null)
     const [credits, setCredits] = useState(null)
     const [creditsIneq, setCreditsIneq] = useState(null)
-    const [days, setDays] = useState(new Array(7))
+    const [days, setDays] = useState({
+        "monday": null,
+        "tuesday": null,
+        "wednesday": null,
+        "thursday": null,
+        "friday": null,
+        "saturday": null,
+        "sunday": null
+    })
     const [campus, setCampus] = useState('VIRTUAL')
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        //TODO handle event
+        //alert('Click')
+        props.onSubmitSearch({
+            CRN,
+            searchTerm,
+            credits,
+            creditsIneq,
+            days,
+            campus
+
+        })
     }
 
     return(

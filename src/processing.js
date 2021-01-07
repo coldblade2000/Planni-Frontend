@@ -1,4 +1,4 @@
-import {getManyRandomColors, getRandomColor} from "./constants/style";
+import {getManyRandomColors} from "./constants/style";
 import {StickerClass} from "./components/schedule/StickerClass";
 
 export const organizeDays = (coursesArray = [])=>{
@@ -26,13 +26,22 @@ export const organizeDays = (coursesArray = [])=>{
             }*/
             const days = meeting.activeDays
             if(days.sunday)   meetingDays['SUN'].push(meetingObj)
-            if(days.monday)   meetingDays['MON'].push(meetingObj)
-            if(days.tuesday)   meetingDays['TUE'].push(meetingObj)
-            if(days.wednesday)   meetingDays['WED'].push(meetingObj)
-            if(days.thursday)   meetingDays['THU'].push(meetingObj)
-            if(days.friday)   meetingDays['FRI'].push(meetingObj)
-            if(days.saturday)   meetingDays['SAT'].push(meetingObj)
+            if (days.monday) meetingDays['MON'].push(meetingObj)
+            if (days.tuesday) meetingDays['TUE'].push(meetingObj)
+            if (days.wednesday) meetingDays['WED'].push(meetingObj)
+            if (days.thursday) meetingDays['THU'].push(meetingObj)
+            if (days.friday) meetingDays['FRI'].push(meetingObj)
+            if (days.saturday) meetingDays['SAT'].push(meetingObj)
         }
     }
     return meetingDays
+}
+
+export function isEmpty(obj) {
+    for (var prop in obj) {
+        if (obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true;
 }
