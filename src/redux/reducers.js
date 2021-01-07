@@ -17,14 +17,21 @@ const displayedCoursesStickers = (courses = [], action) => {
         case ADDED_SECTION:
             return [...courses, action.payload]
         case REMOVED_SECTION:
-            //TODO Check if _id works, otherwise replace with CRN
             return [...courses].filter((course => course._id !== action.payload._id))
         case HIGHLIGHT_SECTION:
-            const course = action.payload;
-            course.isHighlight = false;
-            const courseArray = [...courses]
-            courseArray.filter((elem => (elem.isHighlight === null) || elem.isHighlight))
-            return [...courseArray, course]
+            if (action.payload === null) {
+                return courses.filter((elem => (elem.isHighlight === null) || !elem.isHighlight))
+            } else {
+                //If we are adding a new highlight, we retrieve the course, set isHighlight to true
+                const course = action.payload;
+                course.isHighlight = true;
+                //We then create a new array from the previous courses that removes all courses that
+                // were highlighted. We then push our new course there and return
+                const courseArray = courses.filter((elem => (elem.isHighlight === null) || !elem.isHighlight))
+                courseArray.push(course)
+                return courseArray
+            }
+
     }
     return courses
 }
