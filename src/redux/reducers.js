@@ -15,7 +15,11 @@ import {TABS} from "../constants/model";
 const displayedCoursesStickers = (courses = [], action) => {
     switch (action.type) {
         case ADDED_SECTION:
-            return [...courses, action.payload]
+            const courseArray = courses.filter(elem =>
+                (elem._id !== action.payload._id && (elem.isHighlight === null || !elem.isHighlight))
+            );
+            courseArray.push(action.payload)
+            return courseArray
         case REMOVED_SECTION:
             return [...courses].filter((course => course._id !== action.payload._id))
         case HIGHLIGHT_SECTION:
@@ -23,13 +27,17 @@ const displayedCoursesStickers = (courses = [], action) => {
                 return courses.filter((elem => (elem.isHighlight === null) || !elem.isHighlight))
             } else {
                 //If we are adding a new highlight, we retrieve the course, set isHighlight to true
-                const course = action.payload;
-                course.isHighlight = true;
-                //We then create a new array from the previous courses that removes all courses that
-                // were highlighted. We then push our new course there and return
-                const courseArray = courses.filter((elem => (elem.isHighlight === null) || !elem.isHighlight))
-                courseArray.push(course)
-                return courseArray
+                if (!courses.find((courseInner => courseInner._id === action.payload._id))) {
+                    const course = action.payload;
+                    course.isHighlight = true;
+                    //We then create a new array from the previous courses that removes all courses that
+                    // were highlighted. We then push our new course there and return
+                    const courseArray = courses.filter((elem => (elem.isHighlight === null) || !elem.isHighlight))
+                    courseArray.push(course)
+                    return courseArray
+                } else {
+                    return courses
+                }
             }
 
     }

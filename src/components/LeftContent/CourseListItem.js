@@ -1,27 +1,48 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {connect} from "react-redux";
-import {highlightSection} from "../../redux/actions";
+import {addedSection, highlightSection, removedSection} from "../../redux/actions";
 import {makeStyles} from "@material-ui/core/styles";
 import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import {Divider} from "@material-ui/core";
 
 const CourseListItem = (props) => {
+    const [isAlreadyDisplayed, setIsAlreadyDisplayed] = useState(props.isAlreadyAdded || false)
+
     const COURSE = props.course
     const classes = useStyles(props)
 
     const handleAddClick = (e) => {
-        props.highlightSection(COURSE)
+        COURSE.isHighlight = false
+        props.addedSection(COURSE)
+        setIsAlreadyDisplayed(true)
+    }
+
+    const handleRemoveClick = (e) => {
+        COURSE.isHighlight = false
+        props.removedSection(COURSE)
+        setIsAlreadyDisplayed(false)
+
+    }
+
+    const handleStartHover = (e) => {
+        if (!isAlreadyDisplayed) props.highlightSection(COURSE)
+    }
+
+    const handleEndHover = (e) => {
+        props.highlightSection(null)
     }
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} onMouseEnter={handleStartHover} onMouseLeave={handleEndHover}>
             <div>
                 <p className={classes.courseTitle}>{COURSE.courseTitle}</p>
                 <p className={classes.courseIdentifier}>{COURSE.courseIdentifier}</p>
+                <p className={classes.CRN}>{COURSE._id}</p>
             </div>
             <Divider orientation="vertical" flexitem/>
-            <button>
-                <AddIcon onClick={handleAddClick}/>
+            <button onClick={(isAlreadyDisplayed) ? handleRemoveClick : handleAddClick}>
+                {isAlreadyDisplayed ? <RemoveIcon/> : <AddIcon/>}
             </button>
         </div>
     )
@@ -46,4 +67,4 @@ const useStyles = makeStyles({
     },
 })
 
-export default connect(null, {highlightSection})(CourseListItem)
+export default connect(null, {highlightSection, addedSection, removedSection})(CourseListItem)

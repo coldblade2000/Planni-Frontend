@@ -1,6 +1,6 @@
 export class StickerClass {
 
-    constructor(course, meeting, color, isHighlight) {
+    constructor(course, meeting, color) {
         const subtitle = course.courseTitle + "-\n-" + findPrimaryFaculty(course)
         this.title = course.courseIdentifier;
         this.subtitle = subtitle;
@@ -8,7 +8,7 @@ export class StickerClass {
         this.beginTime = meeting.beginTime;
         this.endTime = meeting.endTime;
         this.color = color;
-        this.isHighlight = isHighlight
+        this.isHighlight = course.isHighlight
     }
 }
 const findPrimaryFaculty = (course)=>{

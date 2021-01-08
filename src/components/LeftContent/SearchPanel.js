@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 const SearchPanel = (props)=>{
-    const [searchTerm, setSearchTerm] = useState('')
+    const [searchTerm, setSearchTerm] = useState('ISIS1104')
     const [CRN, setCRN] = useState(null)
     const [credits, setCredits] = useState(null)
     const [creditsIneq, setCreditsIneq] = useState(null)

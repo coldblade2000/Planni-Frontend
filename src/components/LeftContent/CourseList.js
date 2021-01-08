@@ -16,21 +16,28 @@ const CourseList = (props) => {
 
     return(
         <List className={classes.root} component='nav' aria-label="main mailbox folders">
-            {renderCourseListItems(props.courseArray)}
+            {renderCourseListItems(props.courseArray, props.displayedCourses)}
         </List>
     )
 }
 
 
-const renderCourseListItems = (courses) => {
-    return courses.map((course) =>
-        <CourseListItem course={course}/>
+const renderCourseListItems = (courses, displayedCourses) => {
+    return courses.map((course) => {
+            let isAlreadyDisplayed = false
+            if (displayedCourses.find(dispCourse => dispCourse._id === course._id)) isAlreadyDisplayed = true
+            return <CourseListItem course={course}
+                                   isAlreadyAdded={isAlreadyDisplayed}
+                                   key={course._id}
+            />
+        }
     )
 }
 
 const mapStateToProps = (state) => {
     return {
-        courseArray: state.searchCourses
+        courseArray: state.searchCourses,
+        displayedCourses: state.displayedCourses
     }
 }
 
