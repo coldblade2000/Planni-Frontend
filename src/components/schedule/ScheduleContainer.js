@@ -3,7 +3,7 @@ import {DAYS} from "./Schedule";
 import "./ScheduleContainer.css"
 import ScheduleEventColumn from "./ScheduleEventColumn";
 import {connect} from "react-redux";
-import {organizeDays} from "../../processing";
+import {organizeDays} from "../../model/processing";
 
 const ScheduleContainer = (props)=>{
 

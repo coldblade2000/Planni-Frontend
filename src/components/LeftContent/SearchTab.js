@@ -6,7 +6,7 @@ import {makeStyles} from "@material-ui/core";
 import axios from "axios";
 import {BACKEND_ADDRESS} from "../../constants/model";
 import {courseSearchCompleted} from "../../redux/actions";
-import {isEmpty} from "../../processing";
+import {isEmpty} from "../../model/processing";
 
 const SearchTab = (props) => {
     const classes = useStyles();
@@ -45,7 +45,7 @@ const SearchTab = (props) => {
     return (
         <div className={classes.root}>
             <SearchPanel onSubmitSearch={onSubmitSearch}/>
-            <CourseList/>
+            <CourseList usesSearch={true}/>
         </div>
     )
 }

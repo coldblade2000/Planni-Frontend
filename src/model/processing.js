@@ -1,7 +1,7 @@
-import {getManyRandomColors} from "./constants/style";
-import {StickerClass} from "./components/schedule/StickerClass";
+import {getManyRandomColors} from "../constants/style";
+import {StickerClass} from "../components/schedule/StickerClass";
 
-export const organizeDays = (coursesArray = [])=>{
+export const organizeDays = (coursesArray = []) => {
     const meetingDays = {
         'SUN': [],
         'MON': [],
@@ -46,3 +46,5 @@ export function isEmpty(obj) {
 
     return true;
 }
+
+

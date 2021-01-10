@@ -3,21 +3,24 @@ import {connect} from "react-redux";
 import {TABS} from "../../constants/model";
 import SearchTab from "./SearchTab";
 import {makeStyles} from "@material-ui/core";
+import PlanTab from "./PlanTab";
 
 const LeftContentController = (props)=>{
-    const tab = getTabInfo(props.selectedTab)
+    const tab = props.selectedTab
     const classes = useStyles();
 
     return <div className={classes.root}>
         {renderTab(tab, classes)}
     </div>
 }
-const renderTab = (tabInfo)=>{
-    switch (tabInfo.tabID) {
-        case TABS.SEARCH:
+const renderTab = (tabInfo)=> {
+    switch (tabInfo.id) {
+        case TABS.SEARCH.id:
             return (
                 <SearchTab/>
             )
+        case TABS.PLAN.id:
+            return <PlanTab/>
         default:
             break;
     }
@@ -34,16 +37,5 @@ const mapStateToProps = (state)=>{
     return {selectedTab : state.tab}
 }
 
-const getTabInfo = (tabID)=>{
-    switch (tabID){
-        case TABS.SEARCH:
-            return {
-                tabID: tabID,
-                title: "Search"
-            }
-        default:
-            return null;
-    }
-}
 
 export default connect(mapStateToProps, null)(LeftContentController)

@@ -34,10 +34,18 @@ const renderCourseListItems = (courses, displayedCourses) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        courseArray: state.searchCourses,
-        displayedCourses: state.displayedCourses
+const mapStateToProps = (state, ownprops) => {
+
+    if (ownprops.usesSearch === true) {
+        return {
+            courseArray: state.searchCourses,
+            displayedCourses: state.displayedCourses
+        }
+    } else {
+        return {
+            courseArray: state.displayedCourses,
+            displayedCourses: state.displayedCourses
+        }
     }
 }
 

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import ToolbarBox from "./ToolbarBox";
 import {FormControl, InputLabel, MenuItem, Select} from "@material-ui/core";
 import {selectedNewPlan} from "../redux/actions";
-import {isEmpty} from "../processing";
+import {isEmpty} from "../model/processing";
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({

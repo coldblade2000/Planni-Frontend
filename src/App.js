@@ -22,24 +22,16 @@ import LeftContentController from "./components/LeftContent/LeftContentControlle
 import qs from 'qs'
 import AuthToolbar from "./components/AuthToolbar";
 import {connect} from "react-redux";
-import {changeUser} from "./redux/actions";
+import {changeTab, changeUser} from "./redux/actions";
 import axios from "axios";
-import {BACKEND_ADDRESS} from "./constants/model";
+import {BACKEND_ADDRESS, getTabFromID, TABS} from "./constants/model";
 import PlanToolbar from "./components/PlanToolbar";
-
+import SearchIcon from '@material-ui/icons/Search';
 
 //https://faizanv.medium.com/authentication-for-your-react-and-express-application-w-json-web-tokens-923515826e0
 
 
-const mainListItems =
-    <div>
-        <ListItem button>
-            <ListItemIcon>
-                <DashboardIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Dashboard"/>
-        </ListItem>
-    </div>
+
 
 
 const drawerWidth = 240;
@@ -161,6 +153,27 @@ const App = (props) => {
         }
     });
 
+    const onClickTabItem = (id) => {
+        props.changeTab(getTabFromID(id))
+    }
+
+    const mainListItems = (
+        <div>
+            <ListItem button onClick={() => onClickTabItem(TABS.SEARCH.id)}>
+                <ListItemIcon>
+                    <SearchIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Search"/>
+            </ListItem>
+            <ListItem button onClick={() => onClickTabItem(TABS.PLAN.id)}>
+                <ListItemIcon>
+                    <DashboardIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Current Plan"/>
+            </ListItem>
+        </div>
+    )
+
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.root}>
@@ -171,7 +184,7 @@ const App = (props) => {
                             <MenuIcon/>
                         </IconButton>
                         <Typography variant="h6" noWrap className={classes.title}>
-                            Material-UI
+                            {props.tab.title}
                         </Typography>
                         {props.user && <PlanToolbar/>}
                         <AuthToolbar/>
@@ -210,9 +223,10 @@ const App = (props) => {
 }
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        tab: state.tab
     }
 }
 
 
-export default connect(mapStateToProps, {changeUser})(App);
+export default connect(mapStateToProps, {changeUser, changeTab})(App);
