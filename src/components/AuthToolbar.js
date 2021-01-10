@@ -7,6 +7,7 @@ import {BACKEND_ADDRESS} from "../constants/model";
 import axios from "axios";
 import {changeUser} from "../redux/actions";
 import './stylesheets/AuthToolbar.css'
+import ToolbarBox from "./ToolbarBox";
 
 const AuthToolbar = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -51,29 +52,27 @@ const AuthToolbar = (props) => {
 
     const renderLoggedIn = () => {
         if (isLoggedIn === true) {
-            return (
-                <div>
-                    <div className="authcontainer" onClick={handleMenu}>
-                        <p className="authToolLabel"> {props.user._id}</p>
-                        <div
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            color="inherit">
-                            <AccountCircle/>
-                        </div>
+            return [
+                <div className="authcontainer" onClick={handleMenu}>
+                    <p className="authToolLabel"> {props.user._id}</p>
+                    <div
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        color="inherit">
+                        <AccountCircle/>
                     </div>
-
-                    <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
+                </div>,
+                <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                        vertical: 'top',
                             horizontal: 'right',
                         }}
                         open={Boolean(anchorEl)}
@@ -82,8 +81,7 @@ const AuthToolbar = (props) => {
                         <MenuItem onClick={handleLogOut}>Log out</MenuItem>
                     </Menu>
 
-                </div>
-            )
+            ]
         } else {
             return (
                 <a href={BACKEND_ADDRESS + '/auth/google'}>
@@ -103,7 +101,11 @@ const AuthToolbar = (props) => {
         }
     }
 
-    return renderLoggedIn(isLoggedIn)
+    return (
+        <ToolbarBox>
+            {renderLoggedIn(isLoggedIn)}
+        </ToolbarBox>
+    )
 
 }
 
