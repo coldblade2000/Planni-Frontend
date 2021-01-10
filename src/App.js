@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Schedule from "./components/schedule/Schedule"
-import CourseForm from "./components/DebugThing";
 import './App.css';
 import {
     AppBar,
@@ -20,6 +19,12 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import {makeStyles} from "@material-ui/core/styles";
 import clsx from "clsx";
 import LeftContentController from "./components/LeftContent/LeftContentController";
+import qs from 'qs'
+import AuthToolbar from "./components/AuthToolbar";
+import {connect} from "react-redux";
+import {changeUser} from "./redux/actions";
+import axios from "axios";
+import {BACKEND_ADDRESS} from "./constants/model";
 
 
 //https://faizanv.medium.com/authentication-for-your-react-and-express-application-w-json-web-tokens-923515826e0
@@ -117,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function App() {
+const App = (props) => {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
     const handleDrawerClose = () => {
@@ -126,6 +131,26 @@ function App() {
     const handleDrawerOpen = () => {
         setOpen(true)
     }
+
+    useEffect(() => {
+        let location = props.location.search
+        if (location[0] === '?') location = location.substring(1)
+        const parsed = qs.parse(location)
+        console.log("Parsed:", parsed)
+        if (parsed.token && parsed.token.length > 0) {
+            window.localStorage.setItem("token", parsed.token);
+            props.history.push("/")
+            const token = parsed.token
+            axios.get(BACKEND_ADDRESS + '/user/', {headers: {Authorization: `Bearer ${token}`}}).then((res) => {
+                console.log("Logged in user: ", res.data)
+                props.changeUser(res.data)
+            }).catch((err) => {
+                console.log(err.response.status, err.message)
+                if (err.response.status === 401) window.localStorage.setItem('token', null)
+            })
+        }
+    })
+
     return (
         <div className={classes.root}>
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -134,9 +159,10 @@ function App() {
                                 onClick={handleDrawerOpen}>
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" noWrap>
+                    <Typography variant="h6" noWrap className={classes.title}>
                         Material-UI
                     </Typography>
+                    <AuthToolbar/>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -167,8 +193,13 @@ function App() {
 
 
         </div>
-  );
+    );
+}
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
 }
 
 
-export default App;
+export default connect(mapStateToProps, {changeUser})(App);

@@ -38,6 +38,7 @@ export const organizeDays = (coursesArray = [])=>{
 }
 
 export function isEmpty(obj) {
+    if (!obj) return true
     for (var prop in obj) {
         if (obj.hasOwnProperty(prop))
             return false;
