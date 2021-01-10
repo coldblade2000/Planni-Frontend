@@ -39,9 +39,19 @@ const displayedCoursesStickers = (courses = [], action) => {
                     return courses
                 }
             }
+        case SELECTED_PLAN:
+            return action.payload.courseList
+        case CHANGE_USER:
+            const firstPlan = action.payload.planIDs[0]
+            if (firstPlan) {
+                return firstPlan.courseList
+            } else {
+                return []
+            }
+        default:
+            return courses
 
     }
-    return courses
 }
 
 const displayedBlackouts = (blackouts = [], action) => {
@@ -49,11 +59,20 @@ const displayedBlackouts = (blackouts = [], action) => {
         case ADDED_BLACKOUT:
             return [...blackouts, action.payload]
         case REMOVED_BLACKOUT:
-            //TODO Check if _id works, otherwise replace with CRN
             return [...blackouts].filter((blackout => blackout._id !== action.payload._id))
-
+        case SELECTED_PLAN:
+            return action.payload.blockList
+        case CHANGE_USER:
+            const firstPlan = action.payload.planIDs[0]
+            if (firstPlan) {
+                return firstPlan.blockList
+            } else {
+                return []
+            }
+        default:
+            return blackouts
     }
-    return blackouts
+
 }
 
 const switchUser = (user = null, action) => {

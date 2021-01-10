@@ -16,7 +16,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import {makeStyles} from "@material-ui/core/styles";
+import {createMuiTheme, makeStyles, ThemeProvider} from "@material-ui/core/styles";
 import clsx from "clsx";
 import LeftContentController from "./components/LeftContent/LeftContentController";
 import qs from 'qs'
@@ -25,6 +25,7 @@ import {connect} from "react-redux";
 import {changeUser} from "./redux/actions";
 import axios from "axios";
 import {BACKEND_ADDRESS} from "./constants/model";
+import PlanToolbar from "./components/PlanToolbar";
 
 
 //https://faizanv.medium.com/authentication-for-your-react-and-express-application-w-json-web-tokens-923515826e0
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     toolbar: {
+        minHeight: '80px',
         paddingRight: 24, // keep right padding when drawer closed
     },
     toolbarIcon: {
@@ -101,7 +103,9 @@ const useStyles = makeStyles((theme) => ({
             width: theme.spacing(9),
         },
     },
-    appBarSpacer: theme.mixins.toolbar,
+    appBarSpacer: {
+        marginTop: '80px'
+    },
     content: {
         flexGrow: 1,
         height: '100vh',
@@ -151,48 +155,57 @@ const App = (props) => {
         }
     })
 
+    const theme = createMuiTheme({
+        palette: {
+            type: "light"
+        }
+    });
+
     return (
-        <div className={classes.root}>
-            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-                <Toolbar className={classes.toolbar}>
-                    <IconButton edge='start'
-                                onClick={handleDrawerOpen}>
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography variant="h6" noWrap className={classes.title}>
-                        Material-UI
-                    </Typography>
-                    <AuthToolbar/>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                variant="permanent"
-                classes={{
-                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                }}
-                open={open}>
-                <div>
-                    <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon/>
-                    </IconButton>
-                </div>
-                <Divider/>
-                <List>{mainListItems}</List>
-            </Drawer>
-            <main className={classes.content}>
-                <div className={classes.appBarSpacer}/>
-                <div id="body">
-                    <LeftContentController>
-
-                    </LeftContentController>
-                    <div id="scheduleHalf">
-                        <Schedule/>
+        <ThemeProvider theme={theme}>
+            <div className={classes.root}>
+                <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+                    <Toolbar className={classes.toolbar}>
+                        <IconButton edge='start'
+                                    onClick={handleDrawerOpen}>
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="h6" noWrap className={classes.title}>
+                            Material-UI
+                        </Typography>
+                        {props.user && <PlanToolbar/>}
+                        <AuthToolbar/>
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    classes={{
+                        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                    }}
+                    open={open}>
+                    <div style={{marginBottom: '32px'}}>
+                        <IconButton onClick={handleDrawerClose}>
+                            <ChevronLeftIcon/>
+                        </IconButton>
                     </div>
-                </div>
-            </main>
+                    <Divider/>
+                    <List>{mainListItems}</List>
+                </Drawer>
+                <main className={classes.content}>
+                    <div className={classes.appBarSpacer}/>
+                    <div id="body">
+                        <LeftContentController>
+
+                        </LeftContentController>
+                        <div id="scheduleHalf">
+                            <Schedule/>
+                        </div>
+                    </div>
+                </main>
 
 
-        </div>
+            </div>
+        </ThemeProvider>
     );
 }
 const mapStateToProps = (state) => {

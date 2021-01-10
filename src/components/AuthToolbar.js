@@ -9,9 +9,9 @@ import {changeUser} from "../redux/actions";
 import './stylesheets/AuthToolbar.css'
 import ToolbarBox from "./ToolbarBox";
 
-const AuthToolbar = (props) => {
+const AuthToolbar = ({user, changeUser}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(!isEmpty(props.user))
+    const [isLoggedIn, setIsLoggedIn] = useState(!isEmpty(user))
 
     useEffect(() => {
         console.log("Token found: ", window.localStorage.getItem('token'))
@@ -19,20 +19,20 @@ const AuthToolbar = (props) => {
         if (!isLoggedIn && (token && token.length > 10)) {
             axios.get(BACKEND_ADDRESS + '/user/', {headers: {Authorization: `Bearer ${token}`}}).then((res) => {
                 console.log("Logged in user: ", res.data)
-                props.changeUser(res.data)
+                changeUser(res.data)
                 setIsLoggedIn(true)
             }).catch((err) => {
                 console.log(err.response.status, err.message)
-                if (err.response.status == 401) window.localStorage.setItem('token', null)
+                if (err.response.status === 401) window.localStorage.setItem('token', null)
                 setIsLoggedIn(false)
             })
-        } else if (props.user) {
+        } else if (user) {
             setIsLoggedIn(true)
         } else {
             setIsLoggedIn(false)
         }
 
-    }, [props.user])
+    }, [user, isLoggedIn, changeUser])
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -46,15 +46,15 @@ const AuthToolbar = (props) => {
         handleClose()
         console.log("Logging out...")
         window.localStorage.setItem('token', '')
-        props.changeUser(null)
+        changeUser(null)
         setIsLoggedIn(false)
     }
 
     const renderLoggedIn = () => {
         if (isLoggedIn === true) {
             return [
-                <div className="authcontainer" onClick={handleMenu}>
-                    <p className="authToolLabel"> {props.user._id}</p>
+                <div key="1" className="authcontainer" onClick={handleMenu}>
+                    <p className="authToolLabel"> {user._id}</p>
                     <div
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
@@ -70,13 +70,14 @@ const AuthToolbar = (props) => {
                         vertical: 'top',
                         horizontal: 'right',
                     }}
+                    key="2"
                     keepMounted
                     transformOrigin={{
                         vertical: 'top',
                             horizontal: 'right',
                         }}
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}>
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}>
 
                         <MenuItem onClick={handleLogOut}>Log out</MenuItem>
                     </Menu>

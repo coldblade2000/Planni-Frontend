@@ -15,9 +15,11 @@ const LeftContentController = (props)=>{
 const renderTab = (tabInfo)=>{
     switch (tabInfo.tabID) {
         case TABS.SEARCH:
-            return(
-                <SearchTab />
+            return (
+                <SearchTab/>
             )
+        default:
+            break;
     }
 }
 

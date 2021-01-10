@@ -52,7 +52,7 @@ export const removedBlackout = (blackout) => {
     }
 }
 
-export const selectedPlan = (plan) => {
+export const selectedNewPlan = (plan) => {
     return {
         type: SELECTED_PLAN,
         payload: plan
