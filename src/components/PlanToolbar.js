@@ -1,10 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import ToolbarBox from "./ToolbarBox";
-import {FormControl, InputLabel, MenuItem, Select} from "@material-ui/core";
-import {selectedNewPlan} from "../redux/actions";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Divider,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField
+} from "@material-ui/core";
+import {changeUser, selectedNewPlan} from "../redux/actions";
 import {isEmpty} from "../model/processing";
 import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
+import {createNewPlan, getToken, logInUser} from "../model/networking";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -28,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PlanToolbar = (props) => {
+    const [dialogOpen, setDialogOpen] = useState(false)
+    const [dialogPlanName, setDialogPlanName] = useState('')
     const classes = useStyles();
     const isLoggedIn = !isEmpty(props.user)
     if (!isLoggedIn) {
@@ -35,8 +51,13 @@ const PlanToolbar = (props) => {
         throw new Error("Invalid state: PlanToolbar must not exist if user is logged out")
     }
     const plans = props.user.planIDs
-    const [plan, setPlan] = useState((plans.length > 0) ? plans[0]._id : '')
 
+
+    useEffect(() => {
+        if (!props.currentSelectedPlan && (plans.length > 0)) {
+            props.selectedNewPlan(plans[0])
+        }
+    })
     const renderPlanOptions = (plans) => {
         return plans.map((planElem) =>
             <MenuItem value={planElem._id} key={planElem._id}>{planElem.name}</MenuItem>
@@ -44,8 +65,12 @@ const PlanToolbar = (props) => {
     }
 
     const handleChange = (event) => {
-        props.selectedNewPlan(plans.find((e) => e._id === event.target.value))
-        setPlan(event.target.value)
+        if (event.target.value === 'add') {
+
+        } else {
+            props.selectedNewPlan(plans.find((e) => e._id === event.target.value))
+            //setPlan(event.target.value)
+        }
     }
 
     const theme = createMuiTheme({
@@ -56,6 +81,22 @@ const PlanToolbar = (props) => {
             MuiSelect: {}
         }
     });
+    const handlePlanDialogSubmit = () => {
+        if (dialogPlanName.length > 2) {
+            createNewPlan(getToken(window), dialogPlanName, (res) => {
+                const newplan = res.data
+                console.log("New plan: ", newplan)
+                logInUser(getToken(window), null, null, props.changeUser,
+                    () => props.selectedNewPlan(newplan))
+
+            })
+            setDialogPlanName('')
+            setDialogOpen(false)
+        } else {
+            //TODO Handle incorrect input
+        }
+
+    }
 
     return (
         <ToolbarBox padding="0" className={classes.box}>
@@ -64,13 +105,41 @@ const PlanToolbar = (props) => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={plan}
+                    value={(props.currentSelectedPlan && props.currentSelectedPlan._id) || ''}
                     className={classes.planText}
                     onChange={handleChange}
                 >
                     {renderPlanOptions(plans)}
+                    <Divider/>
+                    <MenuItem value={'add'} key={'add'} onClick={() => setDialogOpen(true)}>Add new plan</MenuItem>
                 </Select>
             </FormControl></ThemeProvider>
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+                <DialogTitle id="plan-create-dialog-title">Create new plan</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Please choose a new name for this plan.
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        value={dialogPlanName}
+                        onChange={(e) => setDialogPlanName(e.target.value)}
+                        label="Plan name"
+                        type="text"
+                        fullWidth
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setDialogOpen(false)} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handlePlanDialogSubmit} color="primary">
+                        Subscribe
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </ToolbarBox>
     )
 }
@@ -83,4 +152,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {selectedNewPlan})(PlanToolbar);
+export default connect(mapStateToProps, {selectedNewPlan, changeUser})(PlanToolbar);

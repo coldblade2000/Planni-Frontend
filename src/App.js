@@ -132,12 +132,12 @@ const App = (props) => {
         let location = props.location.search
         if (location[0] === '?') location = location.substring(1)
         const parsed = qs.parse(location)
-        console.log("Parsed:", parsed)
+        console.log("Parsed: ", parsed)
         if (parsed.token && parsed.token.length > 0) {
             window.localStorage.setItem("token", parsed.token);
             props.history.push("/")
             const token = parsed.token
-            logInUser(token, (res) => props.changeUser(res.data))
+            logInUser(token, null, null, props.changeUser)
         }
     })
 
