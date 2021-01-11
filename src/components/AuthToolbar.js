@@ -1,38 +1,28 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {AccountCircle} from "@material-ui/icons";
 import {Menu, MenuItem} from "@material-ui/core";
 import {connect} from "react-redux";
-import {isEmpty} from "../processing";
 import {BACKEND_ADDRESS} from "../constants/model";
-import axios from "axios";
 import {changeUser} from "../redux/actions";
 import './stylesheets/AuthToolbar.css'
 import ToolbarBox from "./ToolbarBox";
+import {logInUser} from "../model/networking";
 
 const AuthToolbar = ({user, changeUser}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(!isEmpty(user))
+    //const [isLoggedIn, setIsLoggedIn] = useState(!isEmpty(user))
 
     useEffect(() => {
         console.log("Token found: ", window.localStorage.getItem('token'))
         const token = window.localStorage.getItem('token')
-        if (!isLoggedIn && (token && token.length > 10)) {
-            axios.get(BACKEND_ADDRESS + '/user/', {headers: {Authorization: `Bearer ${token}`}}).then((res) => {
-                console.log("Logged in user: ", res.data)
+        if (!user && (token && token.length > 10)) {
+            logInUser(token, (res) => {
                 changeUser(res.data)
-                setIsLoggedIn(true)
-            }).catch((err) => {
-                console.log(err.response.status, err.message)
-                if (err.response.status === 401) window.localStorage.setItem('token', null)
-                setIsLoggedIn(false)
+            }, (err) => {
             })
-        } else if (user) {
-            setIsLoggedIn(true)
-        } else {
-            setIsLoggedIn(false)
         }
 
-    }, [user, isLoggedIn, changeUser])
+    }, [user, changeUser])
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -46,12 +36,12 @@ const AuthToolbar = ({user, changeUser}) => {
         handleClose()
         console.log("Logging out...")
         window.localStorage.setItem('token', '')
+        //setIsLoggedIn(false)
         changeUser(null)
-        setIsLoggedIn(false)
     }
 
     const renderLoggedIn = () => {
-        if (isLoggedIn === true) {
+        if (user) {
             return [
                 <div key="1" className="authcontainer" onClick={handleMenu}>
                     <p className="authToolLabel"> {user._id}</p>
@@ -85,7 +75,7 @@ const AuthToolbar = ({user, changeUser}) => {
             ]
         } else {
             return (
-                <a href={BACKEND_ADDRESS + '/auth/google'}>
+                <a href={BACKEND_ADDRESS + '/auth/login'}>
                     <div className="authcontainer">
                         <p className="authToolLabel">Log In</p>
                         <div
@@ -104,7 +94,7 @@ const AuthToolbar = ({user, changeUser}) => {
 
     return (
         <ToolbarBox>
-            {renderLoggedIn(isLoggedIn)}
+            {renderLoggedIn()}
         </ToolbarBox>
     )
 

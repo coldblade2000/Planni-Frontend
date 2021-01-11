@@ -23,10 +23,10 @@ import qs from 'qs'
 import AuthToolbar from "./components/AuthToolbar";
 import {connect} from "react-redux";
 import {changeTab, changeUser} from "./redux/actions";
-import axios from "axios";
-import {BACKEND_ADDRESS, getTabFromID, TABS} from "./constants/model";
+import {getTabFromID, TABS} from "./constants/model";
 import PlanToolbar from "./components/PlanToolbar";
 import SearchIcon from '@material-ui/icons/Search';
+import {logInUser} from "./model/networking";
 
 //https://faizanv.medium.com/authentication-for-your-react-and-express-application-w-json-web-tokens-923515826e0
 
@@ -137,13 +137,7 @@ const App = (props) => {
             window.localStorage.setItem("token", parsed.token);
             props.history.push("/")
             const token = parsed.token
-            axios.get(BACKEND_ADDRESS + '/user/', {headers: {Authorization: `Bearer ${token}`}}).then((res) => {
-                console.log("Logged in user: ", res.data)
-                props.changeUser(res.data)
-            }).catch((err) => {
-                console.log(err.response.status, err.message)
-                if (err.response.status === 401) window.localStorage.setItem('token', null)
-            })
+            logInUser(token, (res) => props.changeUser(res.data))
         }
     })
 

@@ -42,9 +42,13 @@ const displayedCoursesStickers = (courses = [], action) => {
         case SELECTED_PLAN:
             return action.payload.courseList
         case CHANGE_USER:
-            const firstPlan = action.payload.planIDs[0]
-            if (firstPlan) {
-                return firstPlan.courseList
+            if (action.payload) {
+                const firstPlan = action.payload.planIDs[0]
+                if (firstPlan) {
+                    return firstPlan.courseList
+                } else {
+                    return []
+                }
             } else {
                 return []
             }
@@ -63,12 +67,15 @@ const displayedBlackouts = (blackouts = [], action) => {
         case SELECTED_PLAN:
             return action.payload.blockList
         case CHANGE_USER:
-            const firstPlan = action.payload.planIDs[0]
-            if (firstPlan) {
-                return firstPlan.blockList
-            } else {
-                return []
-            }
+            if (action.payload) {
+
+                const firstPlan = action.payload.planIDs[0]
+                if (firstPlan) {
+                    return firstPlan.blockList
+                } else {
+                    return []
+                }
+            } else return []
         default:
             return blackouts
     }
