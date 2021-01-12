@@ -5,6 +5,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import {Divider} from "@material-ui/core";
+import '../stylesheets/CourseListItem.css'
 
 const CourseListItem = (props) => {
     const [isAlreadyDisplayed, setIsAlreadyDisplayed] = useState(props.isAlreadyAdded || false)
