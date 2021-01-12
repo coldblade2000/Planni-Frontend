@@ -40,7 +40,7 @@ const displayedCoursesStickers = (courses = [], action) => {
                 }
             }
         case SELECTED_PLAN:
-            return action.payload.courseList
+            return action.currentPlan.courseList
         case CHANGE_USER:
             if (action.payload) {
                 const firstPlan = action.payload.planIDs[0]
@@ -65,16 +65,11 @@ const displayedBlackouts = (blackouts = [], action) => {
         case REMOVED_BLACKOUT:
             return [...blackouts].filter((blackout => blackout._id !== action.payload._id))
         case SELECTED_PLAN:
-            return action.payload.blockList
+            return action.currentPlan.blockList
         case CHANGE_USER:
             if (action.payload) {
-
                 const firstPlan = action.payload.planIDs[0]
-                if (firstPlan) {
-                    return firstPlan.blockList
-                } else {
-                    return []
-                }
+                return firstPlan ? firstPlan.blockList : [];
             } else return []
         default:
             return blackouts
@@ -102,7 +97,16 @@ const changeTab = (tab = TABS.SEARCH, action) => {
 const changePlan = (plan = null, action) => {
     switch (action.type) {
         case SELECTED_PLAN:
-            return action.payload;
+            return action.planID;
+        /* case ADDED_SECTION:
+             if (!plan) return plan
+             const courseArray = plan.courseList.filter(elem =>
+                 (elem._id !== action.payload._id && (elem.isHighlight === null || !elem.isHighlight))
+             );
+             courseArray.push(action.payload)
+             return courseArray
+         case REMOVED_SECTION:
+             return plan.courseList.filter((course => course._id !== action.payload._id))*/
         default:
             return plan
     }

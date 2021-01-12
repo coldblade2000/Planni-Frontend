@@ -52,11 +52,24 @@ export const removedBlackout = (blackout) => {
     }
 }
 
-export const selectedNewPlan = (plan) => {
-    return {
-        type: SELECTED_PLAN,
-        payload: plan
+export const selectedNewPlan = (planID) => {
+    return (dispatch, getstate) => {
+        const initialState = getstate()
+        if (initialState.user) {
+            const plan = initialState
+                .user
+                .planIDs
+                .find((elem) => elem._id === planID)
+            dispatch({
+                type: SELECTED_PLAN,
+                planID: planID,
+                currentPlan: plan
+            })
+        }
+
     }
+
+
 }
 
 export const changeTab = (currentTab) => {

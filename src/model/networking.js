@@ -30,12 +30,31 @@ export const createNewPlan = (token, planName, successCallback, errorCallback) =
             Authorization: `Bearer ${token}`
         }
     }).then((res) => {
-        console.log("Logged in user: ", res.data)
+        console.log("Created new plan: ", res.data)
         successCallback(res)
     }).catch((err) => {
         console.log(err.response.status, err.response.data)
         if (err.response.status === 401) window.localStorage.setItem('token', null)
         if (errorCallback) errorCallback(err)
     })
-
+}
+//TODO finish once the redux store has been formalized
+export const updatePlan = (token, plan, successCallback, errorCallback, thenCallback) => {
+    axios({
+        method: 'put',
+        url: BACKEND_ADDRESS + '/plan/' + plan._id.toString(),
+        data: plan,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then((res) => {
+        console.log("Updated plan: ", res.data)
+        successCallback(res)
+    }).catch((err) => {
+        console.log(err.response.status, err.response.data)
+        if (err.response.status === 401) window.localStorage.setItem('token', null)
+        if (errorCallback) errorCallback(err)
+    }).then(() => {
+        if (thenCallback) thenCallback()
+    })
 }
