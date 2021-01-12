@@ -18,10 +18,21 @@ export const highlightSection = (section) => {
 }
 
 export const addedSection = (section) => {
-    return {
+    return (dispatch, getState) => {
+        const initialState = getState()
+        if (initialState.selectedPlan) {
+            dispatch({
+                type: ADDED_SECTION,
+                payload: section,
+                planID: initialState.selectedPlan
+            })
+        }
+    }
+
+    /*return {
         type: ADDED_SECTION,
         payload: section
-    }
+    }*/
 }
 
 export const addedBlackout = (blackout) => {

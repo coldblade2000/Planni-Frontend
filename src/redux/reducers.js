@@ -78,7 +78,36 @@ const displayedBlackouts = (blackouts = [], action) => {
 }
 
 const switchUser = (user = null, action) => {
+    let newPlan, n;
     switch (action.type) {
+        case ADDED_SECTION:
+            const newUserAdd = {...user}
+            for (let i = 0; i < newUserAdd.planIDs.length; i++) {
+                newPlan = newUserAdd.planIDs[i]
+                if (newPlan._id === action.planID) {
+                    n = i
+                }
+            }
+            const newCourseListAdd = newPlan.courseList.filter(elem =>
+                (elem._id !== action.payload._id && (elem.isHighlight === null || !elem.isHighlight)))
+            newCourseListAdd.push(action.payload)
+            newPlan.courseList = newCourseListAdd
+            newUserAdd.planIDs[n] = newPlan
+            return newUserAdd
+        case REMOVED_SECTION:
+            const newUserRemove = {...user}
+            for (let i = 0; i < newUserRemove.planIDs.length; i++) {
+                newPlan = newUserRemove.planIDs[i]
+                if (newPlan._id === action.planID) {
+                    n = i
+                }
+            }
+            const newCourseList = newPlan.courseList.filter(elem =>
+                (elem._id !== action.payload._id && (elem.isHighlight === null || !elem.isHighlight)))
+            newPlan.courseList = newCourseList
+            newUserRemove.planIDs[n] = newPlan
+            return newUserRemove
+        //        return plan.courseList.filter((course => course._id !== action.payload._id))
         case CHANGE_USER:
             return action.payload;
         default:

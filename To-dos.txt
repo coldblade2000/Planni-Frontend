@@ -2,3 +2,4 @@
 This is an issue because certain parts of the state become outdated easily, and syncing that with the server is chaotic.
 
 //TODO Work on blackouts, particularly in reducers.
+//TODO Automatically generate empty plan if user has none
