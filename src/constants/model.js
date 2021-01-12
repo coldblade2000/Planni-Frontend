@@ -16,5 +16,5 @@ export const getTabFromID = (id) => {
     }
 }
 
-export const BACKEND_ADDRESS = "http://localhost:3001"
+export const BACKEND_ADDRESS = "http://bannerplus.com:3001"
 
