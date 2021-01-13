@@ -15,9 +15,10 @@
 
 .stickerSubtitle {
     max-height: 13px;
-    font-size: 8px;
+    font-size: 10px;
     text-align: left;
     overflow-wrap: break-word;
+    white-space: pre-wrap;
     word-break: break-all;
     text-overflow: ellipsis;
     margin: 0;
@@ -31,4 +32,8 @@
     word-break: break-all;
     text-overflow: ellipsis;
     margin: 0;
+}
+
+.darkmodetext {
+    color: white;
 }

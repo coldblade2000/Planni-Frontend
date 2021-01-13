@@ -1,6 +1,7 @@
 import React from "react";
 import './ScheduleEvent.css'
 import {HOUR_HEIGHT} from "../../constants/style";
+import * as tinycolor from 'tinycolor2'
 
 
 //This is in charge of calling the css ScheduleEvent.css that contains the information for the set up
@@ -32,7 +33,7 @@ const ScheduleEvent = ({lengthInMinutes, color, title, subtitle, topOffset, opac
                  }
              }>
             <h4 className="stickerTitle">{title + " " + campusText}</h4>
-            <p className="stickerSubtitle">{subtitle}</p>
+            <p className={"stickerSubtitle " + ((tinycolor(color).isDark()) ? 'darkmodetext' : '')}>{subtitle}</p>
             {/*<p className="campus">{campusText}</p>*/}
         </div>
     )

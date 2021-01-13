@@ -1,7 +1,7 @@
 export class StickerClass {
 
     constructor(course, meeting, color) {
-        const subtitle = course.courseTitle + "-\n-" + findPrimaryFaculty(course)
+        const subtitle = course.courseTitle + "\n" + findPrimaryFaculty(course)
         this.title = course.courseIdentifier;
         this.subtitle = subtitle;
         this['CRN'] = course['CRN'];
