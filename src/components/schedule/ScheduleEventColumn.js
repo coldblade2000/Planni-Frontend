@@ -36,6 +36,7 @@ const renderSticker = (stickerObject, initialscheduleHour) => {
                           title={stickerObject.title}
                           subtitle={stickerObject.subtitle}
                           opacity={stickerObject.opacity}
+                          campus={stickerObject.campus}
                           color={stickerObject.color}/>
 }
 

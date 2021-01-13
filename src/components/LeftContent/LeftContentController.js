@@ -28,7 +28,7 @@ const renderTab = (tabInfo)=> {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '50%',
+        width: '30%',
         backgroundColor: theme.palette.background.paper,
     },
 }));

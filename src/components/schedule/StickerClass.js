@@ -6,6 +6,7 @@ export class StickerClass {
         this.subtitle = subtitle;
         this['CRN'] = course['CRN'];
         this.beginTime = meeting.beginTime;
+        this.campus = meeting.campus
         this.endTime = meeting.endTime;
         this.color = color;
         this.isHighlight = course.isHighlight
