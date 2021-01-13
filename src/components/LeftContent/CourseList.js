@@ -5,6 +5,8 @@ import CourseListItem from "./CourseListItem";
 import {connect} from "react-redux";
 import {selectedNewPlanWithUpdate} from "../../redux/actions";
 
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
@@ -30,8 +32,6 @@ const CourseList = (props) => {
         //TODO finish once the redux store has been formalized
         //props.selectedNewPlanWithUpdate(props.currentPlan, getToken(window))
     }
-
-
     return (
         <List className={classes.root} component='nav' aria-label="main mailbox folders">
             {renderCourseListItems(props.courseArray, props.displayedCourses)}

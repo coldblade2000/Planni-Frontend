@@ -17,7 +17,6 @@ export const highlightSection = (section) => {
         payload: section
     }
 }
-
 export const addedSection = (section, token) => {
     return (dispatch, getState) => {
         dispatch({
@@ -53,8 +52,6 @@ export const removedSection = (section, token) => {
             })
         }
     }
-
-}
 
 export const addedBlackout = (blackout) => {
     return {
@@ -110,10 +107,7 @@ export const selectedNewPlanWithUpdate = (plan, token) => {
             })
         }
     }
-    /* return {
-         type: SELECTED_PLAN,
-         payload: plan
-     }*/
+
 }
 
 export const changeTab = (currentTab) => {

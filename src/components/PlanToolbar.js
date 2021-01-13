@@ -51,7 +51,7 @@ const PlanToolbar = (props) => {
         throw new Error("Invalid state: PlanToolbar must not exist if user is logged out")
     }
     const plans = props.user.planIDs
-
+    const currentlySelectedPlan = props.user.planIDs.find((elem) => elem._id === props.currentSelectedPlan) || null
 
     useEffect(() => {
         if (!props.currentSelectedPlan && (plans.length > 0)) {
@@ -69,7 +69,6 @@ const PlanToolbar = (props) => {
 
         } else {
             props.selectedNewPlan(plans.find((e) => e._id === event.target.value), getToken(window))
-            //setPlan(event.target.value)
         }
     }
 
@@ -88,7 +87,6 @@ const PlanToolbar = (props) => {
                 console.log("New plan: ", newplan)
                 logInUser(getToken(window), null, null, props.changeUser,
                     () => props.selectedNewPlan(newplan, getToken(window)))
-
             })
             setDialogPlanName('')
             setDialogOpen(false)
@@ -105,7 +103,7 @@ const PlanToolbar = (props) => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={(props.currentSelectedPlan && props.currentSelectedPlan._id) || ''}
+                    value={(currentlySelectedPlan && currentlySelectedPlan._id) || ''}
                     className={classes.planText}
                     onChange={handleChange}
                 >
