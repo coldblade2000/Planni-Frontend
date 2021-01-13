@@ -6,6 +6,8 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import {Divider} from "@material-ui/core";
 import './WeekDay.css';
+import '../stylesheets/CourseListItem.css';
+import {getToken} from "../../model/networking";
 
 
 /**
@@ -24,14 +26,16 @@ const CourseListItem = (props) => {
     //When a course has been aded to the schedule with the '+' button 
     const handleAddClick = (e) => {
         COURSE.isHighlight = false
-        props.addedSection(COURSE)
+        props.addedSection(COURSE, getToken(window))
+        props.onChangeCallback()
         setIsAlreadyDisplayed(true)
     }
 
     //When a course has been removed from the schedule with the '-' button
     const handleRemoveClick = (e) => {
         COURSE.isHighlight = false
-        props.removedSection(COURSE)
+        props.removedSection(COURSE, getToken(window))
+        props.onChangeCallback()
         setIsAlreadyDisplayed(false)
     }
 
