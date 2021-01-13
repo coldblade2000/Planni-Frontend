@@ -13,9 +13,10 @@ import thunk from "redux-thunk";
 const middleware = [
     thunk,
 ];
+const composeEnhancers = composeWithDevTools({trace: true})
 
 //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-const store = createStore(reducers, composeWithDevTools(
+const store = createStore(reducers, composeEnhancers(
     applyMiddleware(...middleware)
 ))
 

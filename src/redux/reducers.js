@@ -101,6 +101,18 @@ const changeTab = (tab = TABS.SEARCH, action) => {
 }
 const changePlan = (plan = null, action) => {
     switch (action.type) {
+        case ADDED_SECTION:
+            if (!plan) throw new Error("ERROR: Tried to add course but no plan has been selected")
+            if (action.payload.isHighlight === true) return plan
+            action.payload.isHighlight = false
+            const courseArray = plan.courseList.filter(elem =>
+                (elem._id !== action.payload._id && (elem.isHighlight === null || !elem.isHighlight))
+            );
+            courseArray.push(action.payload)
+            return {...plan, courseList: courseArray}
+        case REMOVED_SECTION:
+            const newCoursesRemove = [...plan.courseList].filter((course => course._id !== action.payload._id))
+            return {...plan, courseList: newCoursesRemove}
         case SELECTED_PLAN:
             return action.payload;
         default:

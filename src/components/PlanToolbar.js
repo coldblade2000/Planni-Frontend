@@ -55,7 +55,7 @@ const PlanToolbar = (props) => {
 
     useEffect(() => {
         if (!props.currentSelectedPlan && (plans.length > 0)) {
-            props.selectedNewPlan(plans[0])
+            props.selectedNewPlan(plans[0], getToken(window))
         }
     })
     const renderPlanOptions = (plans) => {
@@ -68,7 +68,7 @@ const PlanToolbar = (props) => {
         if (event.target.value === 'add') {
 
         } else {
-            props.selectedNewPlan(plans.find((e) => e._id === event.target.value))
+            props.selectedNewPlan(plans.find((e) => e._id === event.target.value), getToken(window))
             //setPlan(event.target.value)
         }
     }
@@ -87,7 +87,7 @@ const PlanToolbar = (props) => {
                 const newplan = res.data
                 console.log("New plan: ", newplan)
                 logInUser(getToken(window), null, null, props.changeUser,
-                    () => props.selectedNewPlan(newplan))
+                    () => props.selectedNewPlan(newplan, getToken(window)))
 
             })
             setDialogPlanName('')

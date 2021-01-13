@@ -9,6 +9,7 @@ import {
     REMOVED_SECTION,
     SELECTED_PLAN
 } from "./types";
+import {getPlan, updatePlan} from "../model/networking";
 
 export const highlightSection = (section) => {
     return {
@@ -17,9 +18,28 @@ export const highlightSection = (section) => {
     }
 }
 
-export const addedSection = (section) => {
+export const addedSection = (section, token) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: ADDED_SECTION,
+            payload: section
+        })
+        if (getState().selectedPlan) {
+            const plan = getState().selectedPlan
+            updatePlan(token, plan, (res) => {
+                dispatch({
+                    type: SELECTED_PLAN,
+                    payload: res.data
+                })
+            })
+        }
+    }
+}
+
+//TODO allow removing sections as well
+export const removedSection = (section) => {
     return {
-        type: ADDED_SECTION,
+        type: REMOVED_SECTION,
         payload: section
     }
 }
@@ -31,12 +51,6 @@ export const addedBlackout = (blackout) => {
     }
 }
 
-export const removedSection = (section) => {
-    return {
-        type: REMOVED_SECTION,
-        payload: section
-    }
-}
 
 export const courseSearchCompleted = (courses) => {
     return {
@@ -51,12 +65,44 @@ export const removedBlackout = (blackout) => {
         payload: blackout
     }
 }
-
-export const selectedNewPlan = (plan) => {
-    return {
-        type: SELECTED_PLAN,
-        payload: plan
+/**
+ * @Deprecated
+ * */
+export const selectedNewPlan = (plan, token) => {
+    return (dispatch) => {
+        dispatch({
+            type: SELECTED_PLAN,
+            payload: plan
+        })
+        getPlan(token, plan._id, (res) => {
+            if (res.data)
+                dispatch({
+                    type: SELECTED_PLAN,
+                    payload: res.data
+                })
+        })
     }
+}
+
+export const selectedNewPlanWithUpdate = (plan, token) => {
+    return (dispatch) => {
+        dispatch({
+            type: SELECTED_PLAN,
+            payload: plan
+        })
+        if (plan) {
+            updatePlan(token, plan, (res) => {
+                dispatch({
+                    type: SELECTED_PLAN,
+                    payload: res.data
+                })
+            })
+        }
+    }
+    /* return {
+         type: SELECTED_PLAN,
+         payload: plan
+     }*/
 }
 
 export const changeTab = (currentTab) => {

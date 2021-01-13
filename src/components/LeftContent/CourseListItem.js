@@ -6,6 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import {Divider} from "@material-ui/core";
 import '../stylesheets/CourseListItem.css'
+import {getToken} from "../../model/networking";
 
 const CourseListItem = (props) => {
     const [isAlreadyDisplayed, setIsAlreadyDisplayed] = useState(props.isAlreadyAdded || false)
@@ -15,13 +16,15 @@ const CourseListItem = (props) => {
 
     const handleAddClick = (e) => {
         COURSE.isHighlight = false
-        props.addedSection(COURSE)
+        props.addedSection(COURSE, getToken(window))
+        props.onChangeCallback()
         setIsAlreadyDisplayed(true)
     }
 
     const handleRemoveClick = (e) => {
         COURSE.isHighlight = false
-        props.removedSection(COURSE)
+        props.removedSection(COURSE, getToken(window))
+        props.onChangeCallback()
         setIsAlreadyDisplayed(false)
 
     }
