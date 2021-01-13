@@ -14,7 +14,7 @@ const SearchPanel = (props)=>{
         "saturday": null,
         "sunday": null
     })
-    const [campus, setCampus] = useState('VIRTUAL')
+    const [campus, setCampus] = useState('')
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
