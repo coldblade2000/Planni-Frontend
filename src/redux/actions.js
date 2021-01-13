@@ -37,11 +37,23 @@ export const addedSection = (section, token) => {
 }
 
 //TODO allow removing sections as well
-export const removedSection = (section) => {
-    return {
-        type: REMOVED_SECTION,
-        payload: section
+export const removedSection = (section, token) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: REMOVED_SECTION,
+            payload: section
+        })
+        if (getState().selectedPlan) {
+            const plan = getState().selectedPlan
+            updatePlan(token, plan, (res) => {
+                dispatch({
+                    type: REMOVED_SECTION,
+                    payload: res.data
+                })
+            })
+        }
     }
+
 }
 
 export const addedBlackout = (blackout) => {
@@ -65,9 +77,7 @@ export const removedBlackout = (blackout) => {
         payload: blackout
     }
 }
-/**
- * @Deprecated
- * */
+
 export const selectedNewPlan = (plan, token) => {
     return (dispatch) => {
         dispatch({
@@ -81,6 +91,7 @@ export const selectedNewPlan = (plan, token) => {
                     payload: res.data
                 })
         })
+
     }
 }
 
