@@ -54,8 +54,8 @@ const PlanToolbar = (props) => {
     const currentlySelectedPlan = props.user.planIDs.find((elem) => elem._id === props.currentSelectedPlan) || null
 
     useEffect(() => {
-        if (!currentlySelectedPlan && (plans.length > 0)) {
-            props.selectedNewPlan(plans[0]._id)
+        if (!props.currentSelectedPlan && (plans.length > 0)) {
+            props.selectedNewPlan(plans[0], getToken(window))
         }
     })
     const renderPlanOptions = (plans) => {
@@ -68,8 +68,7 @@ const PlanToolbar = (props) => {
         if (event.target.value === 'add') {
 
         } else {
-            props.selectedNewPlan(event.target.value)
-            //setPlan(event.target.value)
+            props.selectedNewPlan(plans.find((e) => e._id === event.target.value), getToken(window))
         }
     }
 
@@ -87,8 +86,7 @@ const PlanToolbar = (props) => {
                 const newplan = res.data
                 console.log("New plan: ", newplan)
                 logInUser(getToken(window), null, null, props.changeUser,
-                    () => props.selectedNewPlan(newplan._id))
-
+                    () => props.selectedNewPlan(newplan, getToken(window)))
             })
             setDialogPlanName('')
             setDialogOpen(false)

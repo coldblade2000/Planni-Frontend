@@ -3,7 +3,9 @@ import {List} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import CourseListItem from "./CourseListItem";
 import {connect} from "react-redux";
-import {getToken, updatePlan} from "../../model/networking";
+import {selectedNewPlanWithUpdate} from "../../redux/actions";
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,11 +30,8 @@ const CourseList = (props) => {
     }
     const onChangeCallback = () => {
         //TODO finish once the redux store has been formalized
-
-        updatePlan(getToken(window),)
+        //props.selectedNewPlanWithUpdate(props.currentPlan, getToken(window))
     }
-
-
     return (
         <List className={classes.root} component='nav' aria-label="main mailbox folders">
             {renderCourseListItems(props.courseArray, props.displayedCourses)}
@@ -46,14 +45,17 @@ const mapStateToProps = (state, ownprops) => {
     if (ownprops.usesSearch === true) {
         return {
             courseArray: state.searchCourses,
-            displayedCourses: state.displayedCourses
+            displayedCourses: state.displayedCourses,
+            currentPlan: state.selectedPlan
         }
     } else {
         return {
             courseArray: state.displayedCourses,
-            displayedCourses: state.displayedCourses
+            displayedCourses: state.displayedCourses,
+            currentPlan: state.selectedPlan
+
         }
     }
 }
 
-export default connect(mapStateToProps, null)(CourseList)
+export default connect(mapStateToProps, {selectedNewPlanWithUpdate})(CourseList)
