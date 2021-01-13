@@ -40,7 +40,7 @@ const displayedCoursesStickers = (courses = [], action) => {
                 }
             }
         case SELECTED_PLAN:
-            return action.currentPlan.courseList
+            return action.payload.courseList
         case CHANGE_USER:
             if (action.payload) {
                 const firstPlan = action.payload.planIDs[0]
@@ -65,11 +65,16 @@ const displayedBlackouts = (blackouts = [], action) => {
         case REMOVED_BLACKOUT:
             return [...blackouts].filter((blackout => blackout._id !== action.payload._id))
         case SELECTED_PLAN:
-            return action.currentPlan.blockList
+            return action.payload.blockList
         case CHANGE_USER:
             if (action.payload) {
+
                 const firstPlan = action.payload.planIDs[0]
-                return firstPlan ? firstPlan.blockList : [];
+                if (firstPlan) {
+                    return firstPlan.blockList
+                } else {
+                    return []
+                }
             } else return []
         default:
             return blackouts
@@ -78,36 +83,7 @@ const displayedBlackouts = (blackouts = [], action) => {
 }
 
 const switchUser = (user = null, action) => {
-    let newPlan, n;
     switch (action.type) {
-        case ADDED_SECTION:
-            const newUserAdd = {...user}
-            for (let i = 0; i < newUserAdd.planIDs.length; i++) {
-                newPlan = newUserAdd.planIDs[i]
-                if (newPlan._id === action.planID) {
-                    n = i
-                }
-            }
-            const newCourseListAdd = newPlan.courseList.filter(elem =>
-                (elem._id !== action.payload._id && (elem.isHighlight === null || !elem.isHighlight)))
-            newCourseListAdd.push(action.payload)
-            newPlan.courseList = newCourseListAdd
-            newUserAdd.planIDs[n] = newPlan
-            return newUserAdd
-        case REMOVED_SECTION:
-            const newUserRemove = {...user}
-            for (let i = 0; i < newUserRemove.planIDs.length; i++) {
-                newPlan = newUserRemove.planIDs[i]
-                if (newPlan._id === action.planID) {
-                    n = i
-                }
-            }
-            const newCourseList = newPlan.courseList.filter(elem =>
-                (elem._id !== action.payload._id && (elem.isHighlight === null || !elem.isHighlight)))
-            newPlan.courseList = newCourseList
-            newUserRemove.planIDs[n] = newPlan
-            return newUserRemove
-        //        return plan.courseList.filter((course => course._id !== action.payload._id))
         case CHANGE_USER:
             return action.payload;
         default:
@@ -138,16 +114,7 @@ const changePlan = (plan = null, action) => {
             const newCoursesRemove = [...plan.courseList].filter((course => course._id !== action.payload._id))
             return {...plan, courseList: newCoursesRemove}
         case SELECTED_PLAN:
-            return action.planID;
-        /* case ADDED_SECTION:
-             if (!plan) return plan
-             const courseArray = plan.courseList.filter(elem =>
-                 (elem._id !== action.payload._id && (elem.isHighlight === null || !elem.isHighlight))
-             );
-             courseArray.push(action.payload)
-             return courseArray
-         case REMOVED_SECTION:
-             return plan.courseList.filter((course => course._id !== action.payload._id))*/
+            return action.payload;
         default:
             return plan
     }

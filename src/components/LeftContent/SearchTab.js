@@ -18,7 +18,7 @@ const SearchTab = (props) => {
         if (obj.searchTerm && obj.searchTerm.length === 8) properSearchTerm.courseIdentifier = obj.searchTerm
         if (obj.credits) properSearchTerm.credits = obj.credits
         //if (obj.creditsIneq) properSearchTerm.creditsIneq = obj.creditsIneq
-        if (obj.campus) properSearchTerm.campusDescription = obj.campus
+        if (obj.campus && obj.campus.length > 0) properSearchTerm.campusDescription = obj.campus
 
         if (obj.days) {
             const totalActiveDays = {}

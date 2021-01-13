@@ -52,7 +52,7 @@ export const removedSection = (section, token) => {
             })
         }
     }
-
+}
 export const addedBlackout = (blackout) => {
     return {
         type: ADDED_BLACKOUT,

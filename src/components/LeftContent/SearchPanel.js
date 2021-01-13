@@ -17,7 +17,7 @@ const SearchPanel = (props)=>{
         "saturday": null,
         "sunday": null
     })
-    const [campus, setCampus] = useState('VIRTUAL')
+    const [campus, setCampus] = useState('')
 
     //Handles the submition to search for a new course 
     const handleSubmit = (evt) => {

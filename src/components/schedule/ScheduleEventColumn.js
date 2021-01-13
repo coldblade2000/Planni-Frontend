@@ -4,10 +4,16 @@ import ScheduleEvent from "./ScheduleEvent";
 import "./ScheduleEventColumn.css"
 
 const ScheduleEventColumn = ({stickerArray = [], initialHour}) => {
+    const processedStickerArray = []
+    stickerArray.forEach((elem) => {
+        if (!processedStickerArray.find((sticker) => sticker['CRN'] === elem['CRN'])) {
+            processedStickerArray.push(elem)
+        }
+    })
     return (
         <div className="column overlayColumn">
             <div className="innerOverColumn">
-                {stickerArray.map((sticker) => renderSticker(sticker, initialHour))}
+                {processedStickerArray.map((sticker) => renderSticker(sticker, initialHour))}
             </div>
         </div>
     )
