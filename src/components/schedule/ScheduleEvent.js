@@ -1,7 +1,12 @@
 import React from "react";
 import './ScheduleEvent.css'
-import {HOUR_HEIGHT} from "../../constants/style";
+import {colors, HOUR_HEIGHT} from "../../constants/style";
 
+
+//This is in charge of calling the css ScheduleEvent.css that contains the information for the set up
+//This also recieves the color, title , subtitle information 
+
+//TODO: Edit this to make it nicer. Even though the color and those properties should be somewhere else
 const ScheduleEvent = ({lengthInMinutes, color, title, subtitle, topOffset, opacity = 1}) => {
     return (
         <div className="eventSticker"
@@ -18,5 +23,6 @@ const ScheduleEvent = ({lengthInMinutes, color, title, subtitle, topOffset, opac
         </div>
     )
 }
+
 
 export default ScheduleEvent

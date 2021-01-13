@@ -11,17 +11,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+//This is in charge of tendering the array of courses and displaying them verticaly  by calling the renderCourseListItems function
 const CourseList = (props) => {
     const classes = useStyles();
 
     return(
         <List className={classes.root} component='nav' aria-label="main mailbox folders">
-            {renderCourseListItems(props.courseArray, props.displayedCourses)}
+         {renderCourseListItems(props.courseArray, props.displayedCourses)}
         </List>
     )
 }
 
-
+//This is responsible for rendering the courses if they already arent, if they are it does nothing
 const renderCourseListItems = (courses, displayedCourses) => {
     return courses.map((course) => {
             let isAlreadyDisplayed = false
@@ -33,6 +34,8 @@ const renderCourseListItems = (courses, displayedCourses) => {
         }
     )
 }
+
+
 
 const mapStateToProps = (state, ownprops) => {
 

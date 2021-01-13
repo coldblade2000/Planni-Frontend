@@ -1,6 +1,7 @@
 import {getManyRandomColors} from "../constants/style";
 import {StickerClass} from "../components/schedule/StickerClass";
 
+//This is responsible for sending the selected courses to the schedule
 export const organizeDays = (coursesArray = []) => {
     const meetingDays = {
         'SUN': [],
