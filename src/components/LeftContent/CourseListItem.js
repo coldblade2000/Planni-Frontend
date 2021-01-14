@@ -4,10 +4,11 @@ import {addedSection, highlightSection, removedSection} from "../../redux/action
 import {makeStyles} from "@material-ui/core/styles";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import {Divider} from "@material-ui/core";
+import {Divider, IconButton} from "@material-ui/core";
 import './WeekDay.css';
 import '../stylesheets/CourseListItem.css';
-import {getToken} from "../../model/networking";
+import {getListItemSeats, getToken} from "../../model/networking";
+import ReplayIcon from '@material-ui/icons/Replay';
 
 
 /**
@@ -17,9 +18,27 @@ import {getToken} from "../../model/networking";
  */
 const CourseListItem = (props) => {
     const [isAlreadyDisplayed, setIsAlreadyDisplayed] = useState(props.isAlreadyAdded || false)
+    const [seatsLeft, setSeatsLeft] = useState('?')
+    const [maxSeats, setMaxSeats] = useState('?')
+
 
     //The element that contains the information of a specifici course
     const COURSE = props.course
+
+    const updateSeats = () => {
+        setSeatsLeft('?')
+        setMaxSeats('?')
+        getListItemSeats(COURSE._id, (res) => {
+            const data = res.data[0]
+            setSeatsLeft(data.seatsavail)
+            setMaxSeats(data.maxenrol)
+        })
+    }
+
+    useState(() => {
+        updateSeats()
+    })
+
 
     const classes = useStyles(props)
 
@@ -60,7 +79,7 @@ const CourseListItem = (props) => {
     }
 
     return (
-        //This displays the coure information for a particular section in a vertical format.
+        //This displays the course information for a particular section in a vertical format.
         //When mouse hover over button preview the course section on the schedule. When the mouse is no longer ther remove the preview from the schedule.
         //When + or - clicked it the course will be added or removed from the schedule    
 
@@ -84,6 +103,9 @@ const CourseListItem = (props) => {
                 <div className="contentHalf">
                     <p className={classes.courseTitle}>.</p>
                     <p>{primaryTeacherName}</p>
+                    <p>Seats: {`${seatsLeft}/${maxSeats}`} <IconButton onClick={updateSeats}><ReplayIcon/></IconButton>
+                    </p>
+
 
                     <div className="activeWeekDaysPilbox">
                         <ul id="menu">
