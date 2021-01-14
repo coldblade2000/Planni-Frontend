@@ -103,7 +103,7 @@ const CourseListItem = (props) => {
                 <div className="contentHalf">
                     <p className={classes.courseTitle}>.</p>
                     <p>{primaryTeacherName}</p>
-                    <p className={parseInt(seatsLeft) <= 0 && "emptyClass"}>Seats: {`${seatsLeft}/${maxSeats}`}
+                    <p className={parseInt(seatsLeft) <= 0 ? "emptyClass" : undefined}>Seats: {`${seatsLeft}/${maxSeats}`}
                         <IconButton onClick={updateSeats}><ReplayIcon/></IconButton>
                     </p>
 

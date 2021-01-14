@@ -6,9 +6,9 @@ import {Button, TextField} from "@material-ui/core";
 
 const SearchPanel = (props)=>{
     const [searchTerm, setSearchTerm] = useState('')
-    const [CRN, setCRN] = useState(null)
-    const [credits, setCredits] = useState(null)
-    const [creditsIneq, setCreditsIneq] = useState(null)
+    const [CRN, setCRN] = useState('')
+    const [credits, setCredits] = useState('')
+    const [creditsIneq, setCreditsIneq] = useState('')
     const [days, setDays] = useState({
         "monday": null,
         "tuesday": null,

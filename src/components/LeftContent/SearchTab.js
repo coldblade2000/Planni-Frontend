@@ -15,7 +15,7 @@ const SearchTab = (props) => {
         //TODO Stop assuming the search term is just straight-up the course Identifier
         const properSearchTerm = {}
         if (obj.CRN) properSearchTerm.CRN = obj.CRN
-        if (obj.searchTerm && obj.searchTerm.length === 8) properSearchTerm.courseIdentifier = obj.searchTerm
+        if (obj.searchTerm && obj.searchTerm.length > 3 && obj.searchTerm.length <= 8) properSearchTerm.courseIdentifier = {"$regex": `.*${obj.searchTerm}.*`}
         if (obj.credits) properSearchTerm.credits = obj.credits
         //if (obj.creditsIneq) properSearchTerm.creditsIneq = obj.creditsIneq
         if (obj.campus && obj.campus.length > 0) properSearchTerm.campusDescription = obj.campus

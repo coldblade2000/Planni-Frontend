@@ -84,7 +84,7 @@ export const getListItemSeats = (crn, successCallback, errorCallback, thenCallba
         method: 'get',
         url: 'https://ofertadecursos.uniandes.edu.co/api/courses?offset=0&limit=25&nameInput=' + crn,
     }).then((res) => {
-        console.log("Got course seat info: ", res.data[0])
+        //console.log("Got course seat info: ", res.data[0])
         successCallback(res)
     }).catch((err) => {
         console.log(err)
