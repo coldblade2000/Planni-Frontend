@@ -7,7 +7,7 @@ import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import reducers from "./redux/reducers"
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import {composeWithDevTools} from "redux-devtools-extension";
+import {composeWithDevTools} from "redux-devtools-extension"
 import thunk from "redux-thunk";
 
 const middleware = [
