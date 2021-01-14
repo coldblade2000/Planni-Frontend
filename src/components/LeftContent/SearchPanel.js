@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import {Button, TextField} from "@material-ui/core";
-
+import {Button, Chip, TextField} from "@material-ui/core";
+import '../stylesheets/SearchPanel.css'
 //This is the search bar
 //This deals with the process of searching for a course by its department code (ej: ISIS) and course number (ej:1104)
 
-const SearchPanel = (props)=>{
+const SearchPanel = (props) => {
     const [searchTerm, setSearchTerm] = useState('')
     const [CRN, setCRN] = useState('')
     const [credits, setCredits] = useState('')
@@ -35,24 +35,71 @@ const SearchPanel = (props)=>{
         })
     }
 
+    const onDayClick = (day) => {
+        const newDays = {...days}
+        let dayValue = newDays[day]
+        switch (dayValue) {
+            case true:
+                newDays[day] = false
+                break;
+            case false:
+                newDays[day] = null
+                break;
+            case null:
+                newDays[day] = true
+                break;
+            default:
+                break;
+        }
+        console.log("Setting days to: ", newDays)
+        setDays(newDays)
+    }
+
+    const getChipColor = (dayVal) => {
+        switch (dayVal) {
+            case true:
+                return "primary"
+            case false:
+                return "secondary"
+            default:
+                return undefined
+        }
+    }
+
+    const renderDays = () => {
+        const renderedDayList = []
+        for (let day in days) {
+            const dayBool = days[day]
+            renderedDayList.push(<Chip
+                key={day}
+                clickable
+                color={getChipColor(dayBool)}
+                onClick={() => onDayClick(day)}
+                label={day}
+                className="dayChip searchElement"
+            />)
+        }
+        return renderedDayList
+    }
+
     return (
-        <form onSubmit={handleSubmit} style={{
-            display: 'flex',
-            flexDirection: 'column',
-            background: '#e2f1f8',
-            margin: '16px'
-        }}>
+        <form onSubmit={handleSubmit} className="form">
             <TextField label="Course Identifier"
-                       variant="filled"
+                       variant="outlined"
                        value={searchTerm}
+                       className="searchElement"
                        onChange={e => setSearchTerm(e.target.value)}
             />
             <TextField label="CRN"
-                       variant="filled"
+                       variant="outlined"
                        type="number"
+                       className="searchElement"
                        value={CRN}
                        onChange={e => setCRN(e.target.value)}
             />
+            <div className="chipDiv">
+                {renderDays()}
+            </div>
             <Button type="submit" variant="contained" color="primary">Submit</Button>
         </form>
     );

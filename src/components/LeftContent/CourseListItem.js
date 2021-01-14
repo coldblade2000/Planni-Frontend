@@ -29,9 +29,13 @@ const CourseListItem = (props) => {
         setSeatsLeft('?')
         setMaxSeats('?')
         getListItemSeats(COURSE._id, (res) => {
-            const data = res.data[0]
-            setSeatsLeft(data.seatsavail)
-            setMaxSeats(data.maxenrol)
+            if (res.data && res.data[0]) {
+                const data = res.data[0]
+                setSeatsLeft(data.seatsavail)
+                setMaxSeats(data.maxenrol)
+            } else {
+                console.warn("Couldn't retrieve seat data for a course with CRN : " + COURSE._id, res)
+            }
         })
     }
 
@@ -121,7 +125,7 @@ const CourseListItem = (props) => {
                     </div>
                 </div>
             </div>
-            <Divider orientation="vertical" flexitem/>
+            <Divider orientation="vertical"/>
             <button onClick={(isAlreadyDisplayed) ? handleRemoveClick : handleAddClick}>
                 {isAlreadyDisplayed ? <RemoveIcon/> : <AddIcon/>}
             </button>

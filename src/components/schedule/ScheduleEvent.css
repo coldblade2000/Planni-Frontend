@@ -15,12 +15,14 @@
 
 .stickerSubtitle {
     max-height: 13px;
-    font-size: 10px;
+    font-size: 11px;
     text-align: left;
     overflow-wrap: break-word;
     white-space: pre-wrap;
     word-break: break-all;
     text-overflow: ellipsis;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: normal;
     margin: 0;
 }
 

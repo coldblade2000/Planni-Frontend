@@ -11,8 +11,10 @@ export const logInUser = (token, successCallback, errorCallback, changeUser, the
         if (changeUser) changeUser(res.data)
     }).catch((err) => {
         console.log(err)
-        console.log(err.response.status, err.message)
-        if (err.response.status === 401) window.localStorage.setItem('token', null)
+        if (err.response) {
+            console.log(err.response.status, err.message)
+            if (err.response.status === 401) window.localStorage.setItem('token', null)
+        }
         if (errorCallback) errorCallback(err)
     }).then(() => {
         if (thenCallback) thenCallback()
@@ -33,8 +35,11 @@ export const createNewPlan = (token, planName, successCallback, errorCallback) =
         console.log("Created new plan: ", res.data)
         successCallback(res)
     }).catch((err) => {
-        console.log(err.response.status, err.response.data)
-        if (err.response.status === 401) window.localStorage.setItem('token', null)
+        console.log(err)
+        if (err.response) {
+            console.log(err.response.status, err.message)
+            if (err.response.status === 401) window.localStorage.setItem('token', null)
+        }
         if (errorCallback) errorCallback(err)
     })
 }
@@ -52,8 +57,10 @@ export const updatePlan = (token, plan, successCallback, errorCallback, thenCall
         successCallback(res)
     }).catch((err) => {
         console.log(err)
-        console.log(err.response.status, err.response.data)
-        if (err.response.status === 401) window.localStorage.setItem('token', null)
+        if (err.response) {
+            console.log(err.response.status, err.message)
+            if (err.response.status === 401) window.localStorage.setItem('token', null)
+        }
         if (errorCallback) errorCallback(err)
     }).then(() => {
         if (thenCallback) thenCallback()
@@ -71,8 +78,11 @@ export const getPlan = (token, planID, successCallback, errorCallback, thenCallb
         console.log("Updated plan: ", res.data)
         successCallback(res)
     }).catch((err) => {
-        console.log(err.response.status, err.response.data)
-        if (err.response.status === 401) window.localStorage.setItem('token', null)
+        console.log(err)
+        if (err.response) {
+            console.log(err.response.status, err.message)
+            if (err.response.status === 401) window.localStorage.setItem('token', null)
+        }
         if (errorCallback) errorCallback(err)
     }).then(() => {
         if (thenCallback) thenCallback()
@@ -88,8 +98,10 @@ export const getListItemSeats = (crn, successCallback, errorCallback, thenCallba
         successCallback(res)
     }).catch((err) => {
         console.log(err)
-        if (err.response) console.log(err.response.status, err.response.data)
-        if (err.response.status === 401) window.localStorage.setItem('token', null)
+        if (err.response) {
+            console.log(err.response.status, err.message)
+            if (err.response.status === 401) window.localStorage.setItem('token', null)
+        }
         if (errorCallback) errorCallback(err)
     }).then(() => {
         if (thenCallback) thenCallback()

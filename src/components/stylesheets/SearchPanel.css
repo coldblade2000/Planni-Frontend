@@ -1,0 +1,25 @@
+.chipDiv {
+    display: flex;
+    flex-direction: row;
+    margin: 8px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    background: #e2f1f8;
+    margin: 16px;
+}
+
+.chipDiv > .dayChip {
+    flex-grow: 1;
+    text-transform: capitalize;
+    margin: 0 8px;
+    max-width: 100px;
+}
+
+.form > .searchElement {
+    margin: 8px;
+}

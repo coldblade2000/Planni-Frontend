@@ -14,7 +14,7 @@ export const organizeDays = (coursesArray = []) => {
     }
     for (let i = 0; i<coursesArray.length; i++) {
         const course = coursesArray[i]
-        const color = getManyRandomColors(coursesArray.length-1, i)
+        const color = getManyRandomColors(i, course.CRN)
         for (const meeting of course.meetings) {
             const meetingObj = new StickerClass(course, meeting, color)
             /*const meetingObj = {

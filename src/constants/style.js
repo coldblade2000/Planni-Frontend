@@ -43,7 +43,7 @@ export const materialColors = [
     //PURPLE
     '#673AB7',
     //DEEP ORANGE
-    'FF7247',
+    '#FF7247',
     //BLUE
     '#448AFF',
     //GREEN
@@ -54,10 +54,10 @@ export const materialColors = [
 //TODO: Make sure it selects different colors for every instance. And that the color selected for a class doesnt suddenly change up every time the mouse moves or something like that
 
 
-function materialColorGenerator(){
+function materialColorGenerator(step, crn) {
     //Selecting random color 
-    var randomColor = materialColors[Math.floor(Math.random()*colors.length)];
-    return (randomColor);
+    //var randomColor = materialColors[Math.floor(Math.random()*colors.length)];
+    return materialColors[step];
 }
 
 

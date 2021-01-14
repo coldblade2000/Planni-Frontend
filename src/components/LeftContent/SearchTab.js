@@ -2,14 +2,13 @@ import React from 'react'
 import {connect} from "react-redux";
 import SearchPanel from "./SearchPanel";
 import CourseList from "./CourseList";
-import {makeStyles} from "@material-ui/core";
 import axios from "axios";
 import {BACKEND_ADDRESS} from "../../constants/model";
 import {courseSearchCompleted} from "../../redux/actions";
 import {isEmpty} from "../../model/processing";
 
 const SearchTab = (props) => {
-    const classes = useStyles();
+    //const classes = useStyles();
 
     const onSubmitSearch = (obj) => {
         //TODO Stop assuming the search term is just straight-up the course Identifier
@@ -21,13 +20,15 @@ const SearchTab = (props) => {
         if (obj.campus && obj.campus.length > 0) properSearchTerm.campusDescription = obj.campus
 
         if (obj.days) {
-            const totalActiveDays = {}
+            //const totalActiveDays = {}
             for (let day in obj.days) {
                 if (obj.days[day] !== null)
-                    totalActiveDays[day] = obj.days[day]
+                    properSearchTerm[`totalActiveDays.${day}`] = obj.days[day]
+                //totalActiveDays[day] = obj.days[day]
             }
-            if (!isEmpty(totalActiveDays)) properSearchTerm.totalActiveDays = totalActiveDays
+            //if (!isEmpty(totalActiveDays)) properSearchTerm.totalActiveDays = totalActiveDays
         }
+        console.log("Search query: ", properSearchTerm)
         if (!isEmpty(properSearchTerm)) {
             axios.get(BACKEND_ADDRESS + '/courses/', {
                 params: {
@@ -43,7 +44,7 @@ const SearchTab = (props) => {
 
 
     return (
-        <div className={classes.root}>
+        <div>
             <SearchPanel onSubmitSearch={onSubmitSearch}/>
             <CourseList usesSearch={true}/>
         </div>
@@ -51,11 +52,10 @@ const SearchTab = (props) => {
 }
 
 
-
-const useStyles = makeStyles((theme) => ({
+/*const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.background.paper,
     },
-}));
+}));*/
 
 export default connect(null, {courseSearchCompleted})(SearchTab)
