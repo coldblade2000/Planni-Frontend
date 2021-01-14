@@ -28,7 +28,9 @@ const renderTab = (tabInfo)=> {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '50%',
+        width: '30%',
+        height: '100%',
+        overflow: "scroll",
         backgroundColor: theme.palette.background.paper,
     },
 }));

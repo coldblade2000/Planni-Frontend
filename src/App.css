@@ -22,11 +22,11 @@
 #body {
     display: flex;
     flex-direction: row;
-
+    height: 90%;
 }
 
 #scheduleHalf {
-    width: 50%;
+    width: 70%;
 }
 
 .toolbar {

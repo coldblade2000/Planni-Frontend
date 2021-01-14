@@ -78,3 +78,20 @@ export const getPlan = (token, planID, successCallback, errorCallback, thenCallb
         if (thenCallback) thenCallback()
     })
 }
+
+export const getListItemSeats = (crn, successCallback, errorCallback, thenCallback) => {
+    axios({
+        method: 'get',
+        url: 'https://ofertadecursos.uniandes.edu.co/api/courses?offset=0&limit=25&nameInput=' + crn,
+    }).then((res) => {
+        console.log("Got course seat info: ", res.data[0])
+        successCallback(res)
+    }).catch((err) => {
+        console.log(err)
+        if (err.response) console.log(err.response.status, err.response.data)
+        if (err.response.status === 401) window.localStorage.setItem('token', null)
+        if (errorCallback) errorCallback(err)
+    }).then(() => {
+        if (thenCallback) thenCallback()
+    })
+}
