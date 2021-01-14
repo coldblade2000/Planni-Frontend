@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
+import {Button, TextField} from "@material-ui/core";
 
 //This is the search bar
 //This deals with the process of searching for a course by its department code (ej: ISIS) and course number (ej:1104)
 
 const SearchPanel = (props)=>{
-    const [searchTerm, setSearchTerm] = useState('ISIS1106')
+    const [searchTerm, setSearchTerm] = useState('')
     const [CRN, setCRN] = useState(null)
     const [credits, setCredits] = useState(null)
     const [creditsIneq, setCreditsIneq] = useState(null)
@@ -34,17 +35,25 @@ const SearchPanel = (props)=>{
         })
     }
 
-    return(
-        <form onSubmit={handleSubmit}>
-            <label>
-                Search Term:
-                <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={e=>setSearchTerm(e.target.value)}
-                />
-            </label>
-            <input type="submit" value="Submit"/>
+    return (
+        <form onSubmit={handleSubmit} style={{
+            display: 'flex',
+            flexDirection: 'column',
+            background: '#e2f1f8',
+            margin: '16px'
+        }}>
+            <TextField label="Course Identifier"
+                       variant="filled"
+                       value={searchTerm}
+                       onChange={e => setSearchTerm(e.target.value)}
+            />
+            <TextField label="CRN"
+                       variant="filled"
+                       type="number"
+                       value={CRN}
+                       onChange={e => setCRN(e.target.value)}
+            />
+            <Button type="submit" variant="contained" color="primary">Submit</Button>
         </form>
     );
 }
