@@ -18,9 +18,20 @@ const findPrimaryFaculty = (course)=>{
             //return professor.displayName
            
             var prof = professor.displayName.split(",");
-            var fName = prof[1].toLowerCase(); //First Letter of First Name
-            fName = fName.charAt(1).toUpperCase();
-            var lName = prof[0].split(" ")[0];//First last Name
+            var fName = prof[1].split(" ")
+            if(fName.length >= 2){
+                fName = fName[0].charAt(1).toUpperCase() + fName[1].charAt(2).toLowerCase();
+            }
+            else{
+                fName = fName[0].charAt(1).toUpperCase();
+            }
+            var lName = prof[0].split(" ");//First last Name
+            if(lName.length == 3){
+                lName = lName[0] + " " + lName[1];
+            }
+            else{
+                lName = lName[0];
+            }
             var profAbreviation = fName + "." + lName;
             return profAbreviation
         }
@@ -31,16 +42,23 @@ const findPrimaryFaculty = (course)=>{
         //return course['faculty'][0].displayName
         
         var prof = course['faculty'][0].displayName.split(",");
-        var fName = prof[1].toLowerCase(); //First Letter of First Name
-        fName = fName.charAt(1).toUpperCase();
-        var lName = prof[0].split(" ");//First last Name
-        if(lName.length == 3){
-            lName = lName[0] + " " + lName[1];
-        }
-        else{
-            lName = lName[0];
-        }
-        var profAbreviation = fName + "." + lName;
-        return profAbreviation
+        var fName = prof[1].split(" ")
+        fName[0] = fName[0].trim()
+            if(fName.length >= 2){
+                fName[1]= fName[1].trim();
+                fName = fName[0].charAt(0).toUpperCase() + fName[1].charAt(0).toUpperCase();
+            }
+            else{
+                fName = fName[0].charAt(1).toUpperCase();
+            }
+            var lName = prof[0].split(" ");//First last Name
+            if(lName.length == 3){
+                lName = lName[0] + " " + lName[1];
+            }
+            else{
+                lName = lName[0];
+            }
+            var profAbreviation = fName + "." + lName;
+            return profAbreviation
     }
 }
