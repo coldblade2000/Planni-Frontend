@@ -77,9 +77,9 @@ const CourseListItem = (props) => {
     let primaryTeacherName = undefined
     for (let faculty of COURSE.faculty) {
         if (faculty.isPrimary === true) {
-            var primaryTeacherNameArray = faculty.displayName.split(",");
-            var lastName = primaryTeacherNameArray[0];
-            var firstName = primaryTeacherNameArray[1];
+            let primaryTeacherNameArray = faculty.displayName.split(",");
+            let lastName = primaryTeacherNameArray[0];
+            let firstName = primaryTeacherNameArray[1];
             primaryTeacherName = firstName + " " + lastName;
             break;
             
