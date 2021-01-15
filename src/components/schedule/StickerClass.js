@@ -17,22 +17,22 @@ const findPrimaryFaculty = (course)=>{
         if(professor['isFaculty']===true){
             //return professor.displayName
            
-            var prof = professor.displayName.split(",");
-            var fName = prof[1].split(" ")
+            let prof = professor.displayName.split(",");
+            let fName = prof[1].split(" ")
             if(fName.length >= 2){
                 fName = fName[0].charAt(1).toUpperCase() + fName[1].charAt(2).toLowerCase();
             }
             else{
                 fName = fName[0].charAt(1).toUpperCase();
             }
-            var lName = prof[0].split(" ");//First last Name
+            let lName = prof[0].split(" ");//First last Name
             if(lName.length == 3){
                 lName = lName[0] + " " + lName[1];
             }
             else{
                 lName = lName[0];
             }
-            var profAbreviation = fName + "." + lName;
+            let profAbreviation = fName + "." + lName;
             return profAbreviation
         }
     }
@@ -41,8 +41,8 @@ const findPrimaryFaculty = (course)=>{
     }else{
         //return course['faculty'][0].displayName
         
-        var prof = course['faculty'][0].displayName.split(",");
-        var fName = prof[1].split(" ")
+        let prof = course['faculty'][0].displayName.split(",");
+        let fName = prof[1].split(" ")
         fName[0] = fName[0].trim()
             if(fName.length >= 2){
                 fName[1]= fName[1].trim();
@@ -51,14 +51,14 @@ const findPrimaryFaculty = (course)=>{
             else{
                 fName = fName[0].charAt(1).toUpperCase();
             }
-            var lName = prof[0].split(" ");//First last Name
+            let lName = prof[0].split(" ");//First last Name
             if(lName.length == 3){
                 lName = lName[0] + " " + lName[1];
             }
             else{
                 lName = lName[0];
             }
-            var profAbreviation = fName + "." + lName;
+            let profAbreviation = fName + "." + lName;
             return profAbreviation
     }
 }
