@@ -5,10 +5,10 @@ import {makeStyles} from "@material-ui/core/styles";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import {Card, CardContent, Divider, IconButton, Typography} from "@material-ui/core";
-import './WeekDay.css';
 import '../stylesheets/CourseListItem.css';
 import {getListItemSeats, getToken} from "../../model/networking";
 import ReplayIcon from '@material-ui/icons/Replay';
+import WeekDaysPillbox from "./WeekDaysPillbox";
 
 
 /**
@@ -118,18 +118,9 @@ const CourseListItem = (props) => {
                                 <IconButton onClick={updateSeats}><ReplayIcon/></IconButton>
                             </p>
 
+                            <WeekDaysPillbox totalActiveDays={COURSE.totalActiveDays}/>
 
-                            <div className="activeWeekDaysPilbox">
-                                <ul id="menu">
-                                    <li className={`weekDay ${COURSE.totalActiveDays.monday ? "dayEnabled" : "dayDisabled"}`}>L</li>
-                                    <li className={`weekDay ${COURSE.totalActiveDays.tuesday ? "dayEnabled" : "dayDisabled"}`}>M</li>
-                                    <li className={`weekDay ${COURSE.totalActiveDays.wednesday ? "dayEnabled" : "dayDisabled"}`}>Mi</li>
-                                    <li className={`weekDay ${COURSE.totalActiveDays.thursday ? "dayEnabled" : "dayDisabled"}`}>J</li>
-                                    <li className={`weekDay ${COURSE.totalActiveDays.friday ? "dayEnabled" : "dayDisabled"}`}>V</li>
-                                    <li className={`weekDay ${COURSE.totalActiveDays.saturday ? "dayEnabled" : "dayDisabled"}`}>S</li>
-                                    <li className={`weekDay ${COURSE.totalActiveDays.sunday ? "dayEnabled" : "dayDisabled"}`}>D</li>
-                                </ul>
-                            </div>
+
                         </div>
                     </div>
                 </div>
