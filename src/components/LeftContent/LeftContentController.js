@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         width: '30%',
         height: '100%',
         overflow: "scroll",
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: '#f5f5f5'
     },
 }));
 

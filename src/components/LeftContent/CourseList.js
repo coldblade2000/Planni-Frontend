@@ -6,11 +6,9 @@ import {connect} from "react-redux";
 import {selectedNewPlanWithUpdate} from "../../redux/actions";
 
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        backgroundColor: theme.palette.background.paper,
     },
 }));
 

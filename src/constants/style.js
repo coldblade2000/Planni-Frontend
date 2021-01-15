@@ -57,7 +57,7 @@ export const materialColors = [
 function materialColorGenerator(step, crn) {
     //Selecting random color 
     //var randomColor = materialColors[Math.floor(Math.random()*colors.length)];
-    return materialColors[step];
+    return materialColors[step % materialColors.length];
 }
 
 

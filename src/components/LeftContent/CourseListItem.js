@@ -4,7 +4,7 @@ import {addedSection, highlightSection, removedSection} from "../../redux/action
 import {makeStyles} from "@material-ui/core/styles";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import {Divider, IconButton} from "@material-ui/core";
+import {Card, CardContent, Divider, IconButton, Typography} from "@material-ui/core";
 import './WeekDay.css';
 import '../stylesheets/CourseListItem.css';
 import {getListItemSeats, getToken} from "../../model/networking";
@@ -101,41 +101,44 @@ const CourseListItem = (props) => {
         //TODO(VEA): Add more relevant info here. Check the database info for each section. 
         //Should add, main teacher, activedays the classes arre and some other relevant information
 
-        <div className={classes.root} onMouseEnter={handleStartHover} onMouseLeave={handleEndHover}>
-            <div className={classes.content}>
-                <div className="contentHalf">
-                    <p className={classes.courseTitle}>{COURSE.courseTitle}</p>
-                    <p className={classes.courseIdentifier}>{COURSE.courseIdentifier}</p>
-                    <p className={classes.CRN}>CRN: {COURSE._id}</p>
-                    <p className={classes.campusDescription}>Tipo: {COURSE.campusDescription}</p>
-                    <p className={classes.sectionNumber}>Seccion: {COURSE.sectionNumber}</p>
-                </div>
-                <div className="contentHalf">
-                    <p className={classes.courseTitle}>.</p>
-                    <p>{primaryTeacherName}</p>
-                    <p className={parseInt(seatsLeft) <= 0 ? "emptyClass" : undefined}>Seats: {`${seatsLeft <= 0 ? 0 : seatsLeft}/${maxSeats}`}
-                        <IconButton onClick={updateSeats}><ReplayIcon/></IconButton>
-                    </p>
+        <Card variant="outlined" className={classes.card} onMouseEnter={handleStartHover} onMouseLeave={handleEndHover}>
+            <CardContent className={classes.root}>
+                <div className={classes.content}>
+                    <Typography variant="h6" className={classes.courseTitle}>{COURSE.courseTitle}</Typography>
+                    <div className='halfContainer'>
+                        <div className="contentHalf">
+                            <p className={classes.courseIdentifier}>{COURSE.courseIdentifier}</p>
+                            <p className={classes.CRN}>CRN: {COURSE._id}</p>
+                            <p className={classes.campusDescription}>Tipo: {COURSE.campusDescription}</p>
+                            <p className={classes.sectionNumber}>Seccion: {COURSE.sectionNumber}</p>
+                        </div>
+                        <div className="contentHalf">
+                            <p>{primaryTeacherName}</p>
+                            <p className={parseInt(seatsLeft) <= 0 ? "emptyClass" : undefined}>Seats: {`${seatsLeft <= 0 ? 0 : seatsLeft}/${maxSeats}`}
+                                <IconButton onClick={updateSeats}><ReplayIcon/></IconButton>
+                            </p>
 
 
-                    <div className="activeWeekDaysPilbox">
-                        <ul id="menu">
-                            <li className={`weekDay ${COURSE.totalActiveDays.monday ? "dayEnabled" : "dayDisabled"}`}>L</li>
-                            <li className={`weekDay ${COURSE.totalActiveDays.tuesday ? "dayEnabled" : "dayDisabled"}`}>M</li>
-                            <li className={`weekDay ${COURSE.totalActiveDays.wednesday ? "dayEnabled" : "dayDisabled"}`}>Mi</li>
-                            <li className={`weekDay ${COURSE.totalActiveDays.thursday ? "dayEnabled" : "dayDisabled"}`}>J</li>
-                            <li className={`weekDay ${COURSE.totalActiveDays.friday ? "dayEnabled" : "dayDisabled"}`}>V</li>
-                            <li className={`weekDay ${COURSE.totalActiveDays.saturday ? "dayEnabled" : "dayDisabled"}`}>S</li>
-                            <li className={`weekDay ${COURSE.totalActiveDays.sunday ? "dayEnabled" : "dayDisabled"}`}>D</li>
-                        </ul>
+                            <div className="activeWeekDaysPilbox">
+                                <ul id="menu">
+                                    <li className={`weekDay ${COURSE.totalActiveDays.monday ? "dayEnabled" : "dayDisabled"}`}>L</li>
+                                    <li className={`weekDay ${COURSE.totalActiveDays.tuesday ? "dayEnabled" : "dayDisabled"}`}>M</li>
+                                    <li className={`weekDay ${COURSE.totalActiveDays.wednesday ? "dayEnabled" : "dayDisabled"}`}>Mi</li>
+                                    <li className={`weekDay ${COURSE.totalActiveDays.thursday ? "dayEnabled" : "dayDisabled"}`}>J</li>
+                                    <li className={`weekDay ${COURSE.totalActiveDays.friday ? "dayEnabled" : "dayDisabled"}`}>V</li>
+                                    <li className={`weekDay ${COURSE.totalActiveDays.saturday ? "dayEnabled" : "dayDisabled"}`}>S</li>
+                                    <li className={`weekDay ${COURSE.totalActiveDays.sunday ? "dayEnabled" : "dayDisabled"}`}>D</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <Divider orientation="vertical"/>
-            <button onClick={(isAlreadyDisplayed) ? handleRemoveClick : handleAddClick}>
-                {isAlreadyDisplayed ? <RemoveIcon/> : <AddIcon/>}
-            </button>
-        </div>
+                <Divider orientation="vertical"/>
+                <button onClick={(isAlreadyDisplayed) ? handleRemoveClick : handleAddClick}>
+                    {isAlreadyDisplayed ? <RemoveIcon/> : <AddIcon/>}
+                </button>
+            </CardContent>
+        </Card>
     )
 
 
@@ -148,10 +151,13 @@ const useStyles = makeStyles({
         width: '100%',
         padding: '8px 0',
         margin: '16px 0',
-        background: '#bbdefb',
-        color: '#5D7DD7',
+        //background: '#bbdefb',
+        //color: '#5D7DD7',
         display: 'flex',
         flexDirection: 'row'
+    },
+    card: {
+        margin: '16px'
     },
     button: {
         height: '100%',
@@ -161,11 +167,7 @@ const useStyles = makeStyles({
     },
     content: {
         flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'row'
-    },
-    contentHalf: {
-        flexGrow: 1
+        paddingLeft: '16px',
     }
 })
 
