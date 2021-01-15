@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {connect} from "react-redux";
 import SearchPanel from "./SearchPanel";
 import CourseList from "./CourseList";
@@ -8,6 +8,7 @@ import {courseSearchCompleted} from "../../redux/actions";
 import {isEmpty} from "../../model/processing";
 
 const SearchTab = (props) => {
+    const [filterFull, setFilterFull] = useState(false)
     //const classes = useStyles();
 
     const onSubmitSearch = (obj) => {
@@ -45,8 +46,8 @@ const SearchTab = (props) => {
 
     return (
         <div>
-            <SearchPanel onSubmitSearch={onSubmitSearch}/>
-            <CourseList usesSearch={true}/>
+            <SearchPanel onSubmitSearch={onSubmitSearch} filterFull={filterFull} setFilterFull={setFilterFull}/>
+            <CourseList filterFull={filterFull} usesSearch={true}/>
         </div>
     )
 }

@@ -25,6 +25,11 @@ const CourseListItem = (props) => {
     //The element that contains the information of a specifici course
     const COURSE = props.course
 
+    if (seatsLeft <= 0) {
+        props.deleteItemIfFull(COURSE._id)
+    }
+
+
     const updateSeats = () => {
         setSeatsLeft('?')
         setMaxSeats('?')

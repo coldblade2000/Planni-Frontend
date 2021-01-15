@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, Chip, TextField} from "@material-ui/core";
+import {Button, Chip, Divider, TextField} from "@material-ui/core";
 import '../stylesheets/SearchPanel.css'
 //This is the search bar
 //This deals with the process of searching for a course by its department code (ej: ISIS) and course number (ej:1104)
@@ -99,6 +99,15 @@ const SearchPanel = (props) => {
             />
             <div className="chipDiv">
                 {renderDays()}
+            </div>
+            <Divider/>
+            <div className="chipDiv filters">
+                <Chip
+                    clickable
+                    color={(props.filterFull === true) ? 'primary' : undefined}
+                    onClick={() => props.setFilterFull((props.filterFull !== true))}
+                    label="Hide full classes"
+                    className="filterChip searchElement"/>
             </div>
             <Button type="submit" variant="contained" color="primary">Submit</Button>
         </form>

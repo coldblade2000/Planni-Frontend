@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {List} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import CourseListItem from "./CourseListItem";
@@ -14,40 +14,36 @@ const useStyles = makeStyles((theme) => ({
 
 //This is in charge of tendering the array of courses and displaying them verticaly  by calling the renderCourseListItems function
 const CourseList = (props) => {
+    const [listedCourses, setListedCourses] = useState([])
     const classes = useStyles();
+
+    useEffect(() => {
+        setListedCourses(props.courseArray)
+    }, [props.courseArray])
+
+    const deleteItemIfFull = (CRN) => {
+        if (props.filterFull === true) {
+            setListedCourses(listedCourses.filter(elem => elem._id !== CRN))
+        }
+    }
+
     const renderCourseListItems = (courses, displayedCourses) => {
         return courses.map((course) => {
-                let isAlreadyDisplayed = false
-                if (displayedCourses.find(dispCourse => dispCourse._id === course._id)) isAlreadyDisplayed = true
-                return <CourseListItem course={course}
-                                       isAlreadyAdded={isAlreadyDisplayed}
-                                       onChangeCallback={onChangeCallback}
-                                       key={course._id}
-                />
-            }
-        )
-    }
-    const onChangeCallback = () => {
-        //TODO finish once the redux store has been formalized
-        //props.selectedNewPlanWithUpdate(props.currentPlan, getToken(window))
-    }
-    return (
-        <List className={classes.root} component='nav' aria-label="main mailbox folders">
-         {renderCourseListItems(props.courseArray, props.displayedCourses)}
-        </List>
-    )
-}
-
-//This is responsible for rendering the courses if they already arent, if they are it does nothing
-const renderCourseListItems = (courses, displayedCourses) => {
-    return courses.map((course) => {
             let isAlreadyDisplayed = false
             if (displayedCourses.find(dispCourse => dispCourse._id === course._id)) isAlreadyDisplayed = true
             return <CourseListItem course={course}
                                    isAlreadyAdded={isAlreadyDisplayed}
+                                   deleteItemIfFull={deleteItemIfFull}
                                    key={course._id}
             />
-        }
+            }
+        )
+    }
+
+    return (
+        <List className={classes.root} component='nav' aria-label="main mailbox folders">
+            {renderCourseListItems(listedCourses, props.displayedCourses)}
+        </List>
     )
 }
 

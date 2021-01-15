@@ -20,6 +20,12 @@
     max-width: 100px;
 }
 
+.filterChip {
+    flex-grow: 1;
+    text-transform: capitalize;
+    margin: 0 8px;
+}
+
 .form > .searchElement {
     margin: 8px;
 }
