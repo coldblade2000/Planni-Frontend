@@ -43,7 +43,6 @@ export const createNewPlan = (token, planName, successCallback, errorCallback) =
         if (errorCallback) errorCallback(err)
     })
 }
-//TODO finish once the redux store has been formalized
 export const updatePlan = (token, plan, successCallback, errorCallback, thenCallback) => {
     axios({
         method: 'put',

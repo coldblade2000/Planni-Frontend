@@ -136,7 +136,7 @@ const PlanToolbar = (props) => {
                         Cancel
                     </Button>
                     <Button onClick={handlePlanDialogSubmit} color="primary">
-                        Subscribe
+                        Create Plan
                     </Button>
                 </DialogActions>
             </Dialog>

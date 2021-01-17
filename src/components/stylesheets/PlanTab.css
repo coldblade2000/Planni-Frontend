@@ -10,3 +10,7 @@
 .topInfo {
     margin-bottom: 4px;
 }
+
+.grow {
+    flex-grow: 1;
+}

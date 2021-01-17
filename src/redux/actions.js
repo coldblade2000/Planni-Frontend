@@ -93,19 +93,20 @@ export const selectedNewPlan = (plan, token) => {
 }
 
 export const selectedNewPlanWithUpdate = (plan, token) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch({
             type: SELECTED_PLAN,
             payload: plan
         })
         if (plan) {
-            updatePlan(token, plan, (res) => {
+            await updatePlan(token, plan, (res) => {
                 dispatch({
                     type: SELECTED_PLAN,
                     payload: res.data
                 })
             })
         }
+
     }
 
 }

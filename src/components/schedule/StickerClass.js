@@ -12,53 +12,48 @@ export class StickerClass {
         this.isHighlight = course.isHighlight
     }
 }
-const findPrimaryFaculty = (course)=>{
-    for (const professor of course['faculty']){
-        if(professor['isFaculty']===true){
+
+const findPrimaryFaculty = (course) => {
+    for (const professor of course['faculty']) {
+        if (professor['isFaculty'] === true) {
             //return professor.displayName
-           
+
             let prof = professor.displayName.split(",");
             let fName = prof[1].split(" ")
-            if(fName.length >= 2){
+            if (fName.length >= 2) {
                 fName = fName[0].charAt(1).toUpperCase() + fName[1].charAt(2).toLowerCase();
-            }
-            else{
+            } else {
                 fName = fName[0].charAt(1).toUpperCase();
             }
             let lName = prof[0].split(" ");//First last Name
-            if(lName.length == 3){
+            if (lName.length === 3) {
                 lName = lName[0] + " " + lName[1];
-            }
-            else{
+            } else {
                 lName = lName[0];
             }
-            let profAbreviation = fName + "." + lName;
-            return profAbreviation
+            return fName + "." + lName
         }
     }
-    if (course['faculty'].length===0){
+    if (course['faculty'].length === 0) {
         return null
-    }else{
+    } else {
         //return course['faculty'][0].displayName
-        
+
         let prof = course['faculty'][0].displayName.split(",");
         let fName = prof[1].split(" ")
         fName[0] = fName[0].trim()
-            if(fName.length >= 2){
-                fName[1]= fName[1].trim();
-                fName = fName[0].charAt(0).toUpperCase() + fName[1].charAt(0).toUpperCase();
-            }
-            else{
-                fName = fName[0].charAt(1).toUpperCase();
-            }
-            let lName = prof[0].split(" ");//First last Name
-            if(lName.length == 3){
-                lName = lName[0] + " " + lName[1];
-            }
-            else{
-                lName = lName[0];
-            }
-            let profAbreviation = fName + "." + lName;
-            return profAbreviation
+        if (fName.length >= 2) {
+            fName[1] = fName[1].trim();
+            fName = fName[0].charAt(0).toUpperCase() + fName[1].charAt(0).toUpperCase();
+        } else {
+            fName = fName[0].charAt(1).toUpperCase();
+        }
+        let lName = prof[0].split(" ");//First last Name
+        if (lName.length === 3) {
+            lName = lName[0] + " " + lName[1];
+        } else {
+            lName = lName[0];
+        }
+        return fName + "." + lName
     }
 }
