@@ -41,23 +41,34 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const PlanToolbar = (props) => {
+/**
+ * Toolbar element in charge of allowing the selection of a plan.
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const PlanToolbar = ({user, selectedNewPlan, currentSelectedPlan, changeUser}) => {
+    //is the create plan dialog open?
     const [dialogOpen, setDialogOpen] = useState(false)
+    //The current plan name in the dialog. Dialog text controller
     const [dialogPlanName, setDialogPlanName] = useState('')
+
     const classes = useStyles();
-    const isLoggedIn = !isEmpty(props.user)
+    const isLoggedIn = !isEmpty(user)
     if (!isLoggedIn) {
         console.log("Invalid state: PlanToolbar must not exist if user is logged out")
         throw new Error("Invalid state: PlanToolbar must not exist if user is logged out")
     }
-    const plans = props.user.planIDs
+    const plans = user.planIDs
 
 
     useEffect(() => {
-        if (!props.currentSelectedPlan && (plans.length > 0)) {
-            props.selectedNewPlan(plans[0], getToken(window))
+        //Selects the first plan from the user if none has been selected already
+        if (!currentSelectedPlan && (plans.length > 0)) {
+            selectedNewPlan(plans[0], getToken(window))
         }
     })
+    //Renders the menu with all the plans that are available
     const renderPlanOptions = (plans) => {
         return plans.map((planElem) =>
             <MenuItem value={planElem._id} key={planElem._id}>{planElem.name}</MenuItem>
@@ -65,10 +76,8 @@ const PlanToolbar = (props) => {
     }
 
     const handleChange = (event) => {
-        if (event.target.value === 'add') {
-
-        } else {
-            props.selectedNewPlan(plans.find((e) => e._id === event.target.value), getToken(window))
+        if (event.target.value !== 'add') {
+            selectedNewPlan(plans.find((e) => e._id === event.target.value), getToken(window))
             //setPlan(event.target.value)
         }
     }
@@ -86,8 +95,8 @@ const PlanToolbar = (props) => {
             createNewPlan(getToken(window), dialogPlanName, (res) => {
                 const newplan = res.data
                 console.log("New plan: ", newplan)
-                logInUser(getToken(window), null, null, props.changeUser,
-                    () => props.selectedNewPlan(newplan, getToken(window)))
+                logInUser(getToken(window), null, null, changeUser,
+                    () => selectedNewPlan(newplan, getToken(window)))
 
             })
             setDialogPlanName('')
@@ -105,7 +114,7 @@ const PlanToolbar = (props) => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={(props.currentSelectedPlan && props.currentSelectedPlan._id) || ''}
+                    value={(currentSelectedPlan && currentSelectedPlan._id) || ''}
                     className={classes.planText}
                     onChange={handleChange}
                 >

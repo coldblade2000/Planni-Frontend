@@ -1,6 +1,15 @@
-//TODO overhaul the state so that user, selectedPlan and displayedCourses doesn't  duplicate information, and rather uses a single source of truth
-This is an issue because certain parts of the state become outdated easily, and syncing that with the server is chaotic.
-
-
 //TODO Work on blackouts, particularly in reducers.
 //TODO Automatically generate empty plan if user has none
+//TODO implement SSL and HTTPS
+//TODO Allow deleting plans
+//TODO hosting in Heroku or other
+//TODO allow filtering out courses that conflict with your schedule in search
+//TODO allow using blackouts
+//TODO Allow searching for the courses you want
+//TODO alert the user whether they have selected all the courses they want
+//TODO handle multiple meetings in the same timeslot in the same course correctly
+//TODO add fuzzy search
+//TODO Improve toolbar design
+//TODO Split up displayedCourseStickers and highlighted stickers from Schedule
+//TODO Refactor schedule
+//TODO implement better scrollbar

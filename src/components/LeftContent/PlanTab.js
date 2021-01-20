@@ -30,8 +30,10 @@ const PlanTab = (props) => {
         if (dialogPlanName.length > 2 && dialogPlanName.length <= 24) {
             const newPlan = {...props.plan}
             newPlan.name = dialogPlanName
-            await props.selectedNewPlanWithUpdate(newPlan, getToken(window))
-            await logInUser(getToken(window), null, null, props.changeUser)
+            await props.selectedNewPlanWithUpdate(newPlan, getToken(window)).then(async () => {
+                await logInUser(getToken(window), null, null, props.changeUser)
+            })
+            console.log("Called user login")
             setDialogPlanName('')
             setDialogOpen(false)
         } else {

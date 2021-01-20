@@ -2,6 +2,11 @@ import {getManyRandomColors} from "../constants/style";
 import {StickerClass} from "../components/schedule/StickerClass";
 
 //This is responsible for sending the selected courses to the schedule
+/**
+ * Organizes the list of meetings for each day of the week.
+ * @param coursesArray
+ * @returns {{THU: [], TUE: [], WED: [], SAT: [], FRI: [], SUN: [], MON: []}}
+ */
 export const organizeDays = (coursesArray = []) => {
     const meetingDays = {
         'SUN': [],
@@ -38,6 +43,11 @@ export const organizeDays = (coursesArray = []) => {
     return meetingDays
 }
 
+/**
+ * Returns whether the object in question is null or empty.
+ * @param obj - object to be tested
+ * @returns {boolean}
+ */
 export function isEmpty(obj) {
     if (!obj) return true
     for (var prop in obj) {
