@@ -46,6 +46,5 @@
   },
   "devDependencies": {
     "mongoose": "^5.9.25"
-  },
-  "proxy": "http://localhost:80"
+  }
 }
