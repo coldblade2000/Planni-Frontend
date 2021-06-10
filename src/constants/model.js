@@ -16,5 +16,5 @@ export const getTabFromID = (id) => {
     }
 }
 
-export const BACKEND_ADDRESS = process.env.BACK_HOST ? `http://${process.end.BACK_HOST}:${process.env.BACK_PORT}` : `http://localhost:${process.env.BACK_PORT}`
+export const BACKEND_ADDRESS = process.env.BACK_HOST ? `http://${process.end.BACK_HOST}:${process.env.BACK_PORT}/back` : `http://localhost:${process.env.BACK_PORT}/back`
 
