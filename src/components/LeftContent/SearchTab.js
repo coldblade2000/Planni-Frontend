@@ -30,6 +30,7 @@ const SearchTab = (props) => {
         }
         console.log("Search query: ", properSearchTerm)
         if (!isEmpty(properSearchTerm)) {
+            console.log(BACKEND_ADDRESS)
             axios.get(BACKEND_ADDRESS + '/courses/', {
                 params: {
                     q: JSON.stringify(properSearchTerm)

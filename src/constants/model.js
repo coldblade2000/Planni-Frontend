@@ -9,6 +9,7 @@ export const getTabFromID = (id) => {
     switch (id) {
         case 1:
             return TABS.SEARCH
+
         case 2:
             return TABS.PLAN
         default:
@@ -16,5 +17,5 @@ export const getTabFromID = (id) => {
     }
 }
 
-export const BACKEND_ADDRESS = process.env.BACK_HOST ? `http://${process.end.BACK_HOST}:${process.env.BACK_PORT}/back` : `http://localhost:${process.env.BACK_PORT}/back`
+export const BACKEND_ADDRESS = process.env.REACT_APP_BACK_HOST ? `http://${process.env.REACT_APP_BACK_HOST}:${process.env.REACT_APP_BACK_PORT}/back` : `http://localhost:${process.env.REACT_APP_BACK_PORT}/back`
 
