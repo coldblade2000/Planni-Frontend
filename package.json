@@ -46,5 +46,6 @@
   },
   "devDependencies": {
     "mongoose": "^5.9.25"
-  }
+  },
+  "homepage": "http://planni.me/front"
 }
