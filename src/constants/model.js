@@ -17,5 +17,5 @@ export const getTabFromID = (id) => {
     }
 }
 
-export const BACKEND_ADDRESS = process.env.REACT_APP_BACK_HOST ? `http://${process.env.REACT_APP_BACK_HOST}:${process.env.REACT_APP_BACK_PORT}/back` : `http://localhost:${process.env.REACT_APP_BACK_PORT}/back`
+export const BACKEND_ADDRESS = process.env.REACT_APP_BACK_HOST ? `https://${process.env.REACT_APP_BACK_HOST}/back` : `https://localhost:${process.env.REACT_APP_BACK_PORT}/back`
 
