@@ -1,0 +1,20 @@
+services:
+  planni-frontend:
+    image: coldblade2000/planni-frontend:latest
+    stdin_open: true
+    container_name: planni-frontend
+
+    ports:
+      - "43500:43500"
+
+    environment:
+      REACT_APP_BACK_HOST: planni.me
+      REACT_APP_BACK_PORT: 43000
+      REACT_APP_PORT: 43500
+      PORT: 43500
+
+    networks:
+      - red_interna
+
+networks:
+  red_interna: { }

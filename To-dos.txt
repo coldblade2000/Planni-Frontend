@@ -13,4 +13,3 @@
 //TODO Split up displayedCourseStickers and highlighted stickers from Schedule
 //TODO Refactor schedule
 //TODO implement better scrollbar
-check12

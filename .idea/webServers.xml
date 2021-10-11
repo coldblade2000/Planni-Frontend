@@ -9,6 +9,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="c9c65501-a243-44f9-b4b9-78b8c25425d4" name="Plexbox" url="https://planni.me/front">
+        <fileTransfer rootFolder="/home/coldblade2000/Planni/Planni-Frontend-docker" accessType="SFTP" host="192.168.0.29" port="22" sshConfigId="a22ea5e3-3389-4ae6-92d2-e0ab5344e060" sshConfig="coldblade2000@192.168.0.29:22 agent" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>
