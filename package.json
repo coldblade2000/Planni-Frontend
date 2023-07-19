@@ -48,7 +48,7 @@
     ]
   },
   "devDependencies": {
-    "mongoose": "^5.9.25"
+    "mongoose": "^5.13.20"
   },
   "homepage": "http://planni.me/front"
 }
