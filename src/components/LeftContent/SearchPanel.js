@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, Chip, TextField} from "@material-ui/core";
+import {Button, Chip, TextField} from "@mui/material";
 import '../stylesheets/SearchPanel.css'
 //This is the search bar
 //This deals with the process of searching for a course by its department code (ej: ISIS) and course number (ej:1104)

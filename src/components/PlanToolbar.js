@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import ToolbarBox from "./ToolbarBox";
 import {
+    adaptV4Theme,
     Button,
     Dialog,
     DialogActions,
@@ -13,11 +14,12 @@ import {
     InputLabel,
     MenuItem,
     Select,
-    TextField
-} from "@material-ui/core";
+    TextField,
+} from "@mui/material";
 import {changeUser, selectedNewPlan} from "../redux/actions";
 import {isEmpty} from "../model/processing";
-import {createMuiTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
+import {createTheme, StyledEngineProvider, ThemeProvider} from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import {createNewPlan, getToken, logInUser} from "../model/networking";
 
 const useStyles = makeStyles((theme) => ({
@@ -82,14 +84,14 @@ const PlanToolbar = ({user, selectedNewPlan, currentSelectedPlan, changeUser}) =
         }
     }
 
-    const theme = createMuiTheme({
+    const theme = createTheme(adaptV4Theme({
         palette: {
-            type: "dark"
+            mode: "dark"
         },
         overrides: {
             MuiSelect: {}
         }
-    });
+    }));
     const handlePlanDialogSubmit = () => {
         if (dialogPlanName.length > 2) {
             createNewPlan(getToken(window), dialogPlanName, (res) => {
@@ -109,20 +111,22 @@ const PlanToolbar = ({user, selectedNewPlan, currentSelectedPlan, changeUser}) =
 
     return (
         <ToolbarBox padding="0" className={classes.box}>
-            <ThemeProvider theme={theme}><FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label" className={classes.label}>Selected Plan</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={(currentSelectedPlan && currentSelectedPlan._id) || ''}
-                    className={classes.planText}
-                    onChange={handleChange}
-                >
-                    {renderPlanOptions(plans)}
-                    <Divider/>
-                    <MenuItem value={'add'} key={'add'} onClick={() => setDialogOpen(true)}>Add new plan</MenuItem>
-                </Select>
-            </FormControl></ThemeProvider>
+            <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={theme}><FormControl className={classes.formControl}>
+                    <InputLabel id="demo-simple-select-label" className={classes.label}>Selected Plan</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={(currentSelectedPlan && currentSelectedPlan._id) || ''}
+                        className={classes.planText}
+                        onChange={handleChange}
+                    >
+                        {renderPlanOptions(plans)}
+                        <Divider/>
+                        <MenuItem value={'add'} key={'add'} onClick={() => setDialogOpen(true)}>Add new plan</MenuItem>
+                    </Select>
+                </FormControl></ThemeProvider>
+            </StyledEngineProvider>
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
                 <DialogTitle id="plan-create-dialog-title">Create new plan</DialogTitle>
                 <DialogContent>
@@ -150,7 +154,7 @@ const PlanToolbar = ({user, selectedNewPlan, currentSelectedPlan, changeUser}) =
                 </DialogActions>
             </Dialog>
         </ToolbarBox>
-    )
+    );
 }
 
 

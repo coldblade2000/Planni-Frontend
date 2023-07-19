@@ -14,11 +14,11 @@ import {
     TextField,
     Toolbar,
     Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import '../stylesheets/PlanTab.css'
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import EditIcon from '@material-ui/icons/Edit';
-import WarningIcon from '@material-ui/icons/Warning';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
+import WarningIcon from '@mui/icons-material/Warning';
 import {getToken, logInUser} from "../../model/networking";
 import {changeUser, selectedNewPlanWithUpdate} from "../../redux/actions";
 
@@ -58,15 +58,19 @@ const PlanTab = (props) => {
             <Toolbar>
                 <Typography variant='h6'>{props.plan.name}</Typography>
                 <div className="grow"/>
-                <IconButton aria-label={`there are ${''} alerts`} color="inherit">
+                <IconButton aria-label={`there are ${''} alerts`} color="inherit" size="large">
                     <Badge badgeContent={4} color="secondary">
                         <WarningIcon/>
                     </Badge>
                 </IconButton>
-                <IconButton aria-label="rename plan" onClick={() => setDialogOpen(true)} color="inherit">
+                <IconButton
+                    aria-label="rename plan"
+                    onClick={() => setDialogOpen(true)}
+                    color="inherit"
+                    size="large">
                     <EditIcon/>
                 </IconButton>
-                <IconButton aria-label="delete plan" color="inherit">
+                <IconButton aria-label="delete plan" color="inherit" size="large">
                     <DeleteForeverIcon/>
                 </IconButton>
             </Toolbar>
@@ -102,7 +106,7 @@ const PlanTab = (props) => {
             </Typography>
             <CourseList usesSearch={false}/>
         </div>
-    )
+    );
 }
 
 

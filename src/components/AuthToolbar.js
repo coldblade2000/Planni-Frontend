@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
-import {AccountCircle} from "@material-ui/icons";
-import {Menu, MenuItem} from "@material-ui/core";
+import {AccountCircle} from "@mui/icons-material";
+import {Menu, MenuItem} from "@mui/material";
 import {connect} from "react-redux";
 import {BACKEND_ADDRESS} from "../constants/model";
 import {changeUser} from "../redux/actions";

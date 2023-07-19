@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import {connect} from "react-redux";
 import {addedSection, highlightSection, removedSection} from "../../redux/actions";
-import {makeStyles} from "@material-ui/core/styles";
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import {Card, CardContent, Divider, IconButton, Typography} from "@material-ui/core";
+import makeStyles from '@mui/styles/makeStyles';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import {Card, CardContent, Divider, IconButton, Typography} from "@mui/material";
 import '../stylesheets/CourseListItem.css';
 import {getListItemSeats, getToken} from "../../model/networking";
-import ReplayIcon from '@material-ui/icons/Replay';
+import ReplayIcon from '@mui/icons-material/Replay';
 import WeekDaysPillbox from "./WeekDaysPillbox";
 
 
@@ -115,7 +115,7 @@ const CourseListItem = (props) => {
                         <div className="contentHalf">
                             <p>{primaryTeacherName}</p>
                             <p className={parseInt(seatsLeft) <= 0 ? "emptyClass" : undefined}>Seats: {`${seatsLeft <= 0 ? 0 : seatsLeft}/${maxSeats}`}
-                                <IconButton onClick={updateSeats}><ReplayIcon/></IconButton>
+                                <IconButton onClick={updateSeats} size="large"><ReplayIcon/></IconButton>
                             </p>
 
                             <WeekDaysPillbox totalActiveDays={COURSE.totalActiveDays}/>
@@ -130,7 +130,7 @@ const CourseListItem = (props) => {
                 </button>
             </CardContent>
         </Card>
-    )
+    );
 
 
 }

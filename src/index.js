@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -10,6 +9,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import {composeWithDevTools} from "redux-devtools-extension"
 import thunk from "redux-thunk";
 import 'fontsource-roboto';
+import {createRoot} from "react-dom/client";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 const middleware = [
     thunk,
@@ -20,16 +21,25 @@ const composeEnhancers = composeWithDevTools({trace: true})
 const store = createStore(reducers, composeEnhancers(
     applyMiddleware(...middleware)
 ))
-
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+const theme = createTheme({
+    palette: {
+        mode: "light"
+    }
+})
+root.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <Switch>
-                <Route path="/" component={App}/>
-            </Switch>
-        </BrowserRouter>
-    </Provider>,
-    document.getElementById('root')
+        <ThemeProvider theme={theme}>
+
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/" component={App}/>
+                </Switch>
+            </BrowserRouter>
+        </ThemeProvider>
+
+    </Provider>
 );
 
 // If you want your app to work offline and load faster, you can change

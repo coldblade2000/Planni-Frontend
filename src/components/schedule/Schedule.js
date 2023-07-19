@@ -1,24 +1,22 @@
-import React, {useState} from "react";
+import React from "react";
 import './Schedule.css'
 import ScheduleContainer from "./ScheduleContainer";
-import ScrollbarSize from "react-scrollbar-size";
+import useScrollbarSize from "react-scrollbar-size";
 
 export const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
 
 const Schedule = (props) => {
 
-    const [contentHours, sideHours] = generateDaysInRow([props.initialHour, props.finalHour] )
-    const [scrollbarMargin, setScrollbarMargin] = useState(0)
-    const scrollbarSizeChange = ({width}) => {
-        setScrollbarMargin(width)
-    }
+    const [contentHours, sideHours] = generateDaysInRow([props.initialHour, props.finalHour])
+    const {_, width} = useScrollbarSize();
+
 
     return (
         <div className="schedule">
             <div className="scheduleUpper">
                 <div className="emptyTimeCol"></div>
-                <ul className="scheduleDays" style={{marginRight: scrollbarMargin + "px"}}>
+                <ul className="scheduleDays" style={{marginRight: width + "px"}}>
                     {DAYS.map((day) =>
                         <li className="scheduleUpperDay column" key={day}><p>{day}</p></li>)}
                 </ul>
@@ -29,7 +27,6 @@ const Schedule = (props) => {
                 </div>
                 <ScheduleContainer contentHours={contentHours} initialHour={props.initialHour}/>
             </div>
-            <ScrollbarSize onChange={scrollbarSizeChange} style={{scrollbarWidth: 'thin'}}/>
         </div>
     )
 }

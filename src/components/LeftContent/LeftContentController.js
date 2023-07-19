@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from "react-redux";
 import {TABS} from "../../constants/model";
 import SearchTab from "./SearchTab";
-import {makeStyles} from "@material-ui/core";
+import makeStyles from '@mui/styles/makeStyles';
 import PlanTab from "./PlanTab";
 
 const LeftContentController = (props)=>{
@@ -28,7 +28,7 @@ const renderTab = (tabInfo)=> {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '30%',
+        width: '40%',
         height: '100%',
         overflow: "scroll",
         backgroundColor: '#f5f5f5'
