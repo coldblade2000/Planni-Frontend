@@ -2,9 +2,9 @@ import React, {useEffect} from 'react';
 import Schedule from "./components/schedule/Schedule"
 import './App.css';
 import {
-    AppBar,
+    Box,
+    CssBaseline,
     Divider,
-    Drawer,
     IconButton,
     List,
     ListItem,
@@ -17,7 +17,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import makeStyles from '@mui/styles/makeStyles';
-import clsx from "clsx";
 import LeftContentController from "./components/LeftContent/LeftContentController";
 import qs from 'qs'
 import AuthToolbar from "./components/AuthToolbar";
@@ -27,6 +26,9 @@ import {getTabFromID, TABS} from "./constants/model";
 import PlanToolbar from "./components/PlanToolbar";
 import SearchIcon from '@mui/icons-material/Search';
 import {logInUser} from "./model/networking";
+import {styled} from "@mui/material/styles";
+import MuiAppBar from '@mui/material/AppBar';
+import MuiDrawer from '@mui/material/Drawer';
 
 //https://faizanv.medium.com/authentication-for-your-react-and-express-application-w-json-web-tokens-923515826e0
 
@@ -37,87 +39,81 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => {
     console.log(theme)
     return {
-        root: {
-            display: 'flex',
-        },
-        toolbar: {
-            minHeight: '80px',
-            paddingRight: 24, // keep right padding when drawer closed
-        },
-        toolbarIcon: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            padding: '0 8px',
-            ...theme.mixins.toolbar,
-        },
-        appBar: {
-            zIndex: theme.zIndex.drawer + 1,
-            transition: theme.transitions.create(['width', 'margin'], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.leavingScreen,
-            }),
-        },
-        appBarShift: {
-            marginLeft: drawerWidth,
-            width: `calc(100% - ${drawerWidth}px)`,
-            transition: theme.transitions.create(['width', 'margin'], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-        },
-        menuButton: {
-            marginRight: 36,
-        },
-        menuButtonHidden: {
-            display: 'none',
-        },
         title: {
             flexGrow: 1,
-        },
-        drawerPaper: {
-            position: 'relative',
-            whiteSpace: 'nowrap',
-            width: drawerWidth,
-            transition: theme.transitions.create('width', {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-        },
-        drawerPaperClose: {
-            overflowX: 'hidden',
-            transition: theme.transitions.create('width', {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.leavingScreen,
-            }),
-            width: theme.spacing(7),
-            [theme.breakpoints.up('sm')]: {
-                width: theme.spacing(9),
-            },
-        },
-        appBarSpacer: {
-            marginTop: '80px'
         },
         content: {
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
-        },
-        container: {
-            paddingTop: theme.spacing(4),
-            paddingBottom: theme.spacing(4),
-        },
-        paper: {
-            padding: theme.spacing(2),
-            display: 'flex',
-            overflow: 'auto',
-            flexDirection: 'column',
-        },
-        fixedHeight: {
-            height: 240,
         }
     }
 });
+
+const openedMixin = (theme) => ({
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
+});
+
+const closedMixin = (theme) => ({
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+        width: `calc(${theme.spacing(8)} + 1px)`,
+    },
+});
+
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({theme, open}) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
+
+const DrawerHeader = styled('div')(({theme}) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+}));
+
+const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
+    ({theme, open}) => ({
+        width: drawerWidth,
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
+        boxSizing: 'border-box',
+        ...(open && {
+            ...openedMixin(theme),
+            '& .MuiDrawer-paper': openedMixin(theme),
+        }),
+        ...(!open && {
+            ...closedMixin(theme),
+            '& .MuiDrawer-paper': closedMixin(theme),
+        }),
+    }),
+);
 
 const App = (props) => {
     const [open, setOpen] = React.useState(false);
@@ -163,14 +159,14 @@ const App = (props) => {
                     <ListItemText primary="Current Plan"/>
                 </ListItem>
             }
-
         </div>
     )
 
     return (
-        <div className={classes.root}>
-            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-                <Toolbar className={classes.toolbar}>
+        <Box sx={{display: 'flex'}}>
+            <CssBaseline/>
+            <AppBar position="fixed" open={open}>
+                <Toolbar>
                     <IconButton edge='start' onClick={handleDrawerOpen} size="large">
                         <MenuIcon/>
                     </IconButton>
@@ -183,32 +179,29 @@ const App = (props) => {
             </AppBar>
             <Drawer
                 variant="permanent"
-                classes={{
-                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                }}
                 open={open}>
-                <div style={{marginBottom: '32px'}}>
-                    <IconButton onClick={handleDrawerClose} size="large">
+                <DrawerHeader>
+                    <IconButton onClick={handleDrawerClose}>
                         <ChevronLeftIcon/>
                     </IconButton>
-                </div>
+                </DrawerHeader>
                 <Divider/>
                 <List>{mainListItems}</List>
             </Drawer>
-            <main className={classes.content}>
-                <div className={classes.appBarSpacer}/>
-                <div id="body">
+            <Box component="main" sx={{flexGrow: 1, p: 3, paddingLeft: '0'}}>
+                <DrawerHeader/>
+                <Box id="body" sx={{display: 'flex', flexDirection: 'row', flexWrap: 'false'}}>
                     <LeftContentController>
 
                     </LeftContentController>
                     <div id="scheduleHalf">
                         <Schedule/>
                     </div>
-                </div>
-            </main>
+                </Box>
+            </Box>
 
 
-        </div>
+        </Box>
     );
 }
 const mapStateToProps = (state) => {
