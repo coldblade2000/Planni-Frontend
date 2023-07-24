@@ -28,8 +28,8 @@ const ScheduleEvent = ({lengthInMinutes, color, title, subtitle, topOffset, isHi
                      backgroundColor: color,
                      height: "" + (lengthInMinutes / 60 * HOUR_HEIGHT) + "px",
                      top: topOffset + "px",
-                     opacity: isHighlight ? 0.5 : 1,
-                     outline: isHighlight ? '1px dotted #9c27b0' : ''
+                     opacity: isHighlight ? 0.7 : 1,
+                     outline: isHighlight ? '3px dotted #9c27b0' : ''
                  }
              }>
             <h4 className="stickerTitle">{title + " " + campusText}</h4>
