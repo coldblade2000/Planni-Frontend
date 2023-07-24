@@ -3,7 +3,7 @@ services:
     image: coldblade2000/planni-frontend:latest
     stdin_open: true
     container_name: planni-frontend
-
+    restart: always
     ports:
       - "${REACT_APP_PORT}:${REACT_APP_PORT}"
 
