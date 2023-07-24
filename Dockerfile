@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:16
 
 WORKDIR /code
 # Install app dependencies
@@ -6,7 +6,7 @@ WORKDIR /code
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 # If you are building your code for production
 # RUN npm ci --only=production
 
