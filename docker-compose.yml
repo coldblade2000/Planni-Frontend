@@ -5,10 +5,10 @@ services:
     container_name: planni-frontend
 
     ports:
-      - "43500:43500"
+      - "${REACT_APP_PORT}:${REACT_APP_PORT}"
 
     env_file:
-      - .env.${ENVIRONMENT}
+      - .env
 
     networks:
       - red_planni
