@@ -4,7 +4,7 @@ import {addedSection, highlightSection, removedSection} from "../../redux/action
 import makeStyles from '@mui/styles/makeStyles';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import {Card, CardContent, Divider, IconButton, Typography} from "@mui/material";
+import {Button, Card, CardContent, IconButton, Typography} from "@mui/material";
 import '../stylesheets/CourseListItem.css';
 import {getListItemSeats, getToken} from "../../model/networking";
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -101,15 +101,20 @@ const CourseListItem = (props) => {
         //TODO(VEA): Add more relevant info here. Check the database info for each section. 
         //Should add, main teacher, activedays the classes arre and some other relevant information
 
-        <Card variant="outlined" className={classes.card} onMouseEnter={handleStartHover} onMouseLeave={handleEndHover}>
-            <CardContent className={classes.root}>
+        <Card variant="outlined" className={classes.card} onMouseEnter={handleStartHover} onMouseLeave={handleEndHover}
+              sx={{flexDirection: 'row', display: 'flex'}}>
+            <CardContent className={classes.root} sx={{padding: '0px'}}>
                 <div className={classes.content}>
-                    <Typography variant="h6" className={classes.courseTitle}>{COURSE.courseTitle}</Typography>
+                    <Typography variant="h6" className={classes.courseTitle}
+                                sx={{fontWeight: '800', fontSize: '1rem'}}
+                    >
+                        {COURSE.courseTitle}
+                    </Typography>
                     <div className='halfContainer'>
                         <div className="contentHalf">
                             <p className={classes.courseIdentifier}>{COURSE.courseIdentifier}</p>
                             <p className={classes.CRN}>CRN: {COURSE._id}</p>
-                            <p className={classes.campusDescription}>Tipo: {COURSE.campusDescription}</p>
+                            <p className={classes.campusDescription}>{COURSE.campusDescription}</p>
                             <p className={classes.sectionNumber}>Seccion: {COURSE.sectionNumber}</p>
                         </div>
                         <div className="contentHalf">
@@ -117,18 +122,17 @@ const CourseListItem = (props) => {
                             <p className={parseInt(seatsLeft) <= 0 ? "emptyClass" : undefined}>Seats: {`${seatsLeft <= 0 ? 0 : seatsLeft}/${maxSeats}`}
                                 <IconButton onClick={updateSeats} size="large"><ReplayIcon/></IconButton>
                             </p>
-
-                            <WeekDaysPillbox totalActiveDays={COURSE.totalActiveDays}/>
-
-
                         </div>
+                        <WeekDaysPillbox totalActiveDays={COURSE.totalActiveDays}/>
                     </div>
                 </div>
-                <Divider orientation="vertical"/>
-                <button onClick={(isAlreadyDisplayed) ? handleRemoveClick : handleAddClick}>
-                    {isAlreadyDisplayed ? <RemoveIcon/> : <AddIcon/>}
-                </button>
             </CardContent>
+            <Button color='primary' variant={(isAlreadyDisplayed) ? 'contained' : 'outlined'}
+                    onClick={(isAlreadyDisplayed) ? handleRemoveClick : handleAddClick}
+                    sx={{padding: '0 0.5rem', minWidth: "1rem"}}
+            >
+                {isAlreadyDisplayed ? <RemoveIcon/> : <AddIcon/>}
+            </Button>
         </Card>
     );
 
@@ -139,7 +143,7 @@ const CourseListItem = (props) => {
 //Styles for the
 const useStyles = makeStyles({
     root: {
-        width: '100%',
+
         padding: '8px 0',
         margin: '16px 0',
         //background: '#bbdefb',
@@ -154,7 +158,7 @@ const useStyles = makeStyles({
         height: '100%',
     },
     courseTitle: {
-        fontWeight: 'bold'
+        fontWeight: '800'
     },
     content: {
         flexGrow: 1,
