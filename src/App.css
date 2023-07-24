@@ -19,14 +19,15 @@
 
 }
 
-/*#body {
+#body {
     display: flex;
     flex-direction: row;
-    height: 90vh;
-}*/
+}
 
 #scheduleHalf {
     flex-grow: 1;
+    height: 100%;
+    overflow-x: scroll;
 }
 
 .toolbar {

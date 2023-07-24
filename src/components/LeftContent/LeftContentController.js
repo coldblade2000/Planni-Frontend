@@ -28,7 +28,7 @@ const renderTab = (tabInfo)=> {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxHeight: 'auto',
+        height: '100%',
         maxWidth: '30rem',
         overflow: "scroll",
     },

@@ -188,10 +188,13 @@ const App = (props) => {
                 <Divider/>
                 <List>{mainListItems}</List>
             </Drawer>
-            <Box component="main" sx={{flexGrow: 1, p: 3, paddingLeft: '0', height: '100vh'}}>
+            <Box component="main" sx={{flexGrow: 1, p: 3, paddingLeft: '0', height: '100vh', overflow: 'scroll'}}>
                 <DrawerHeader/>
                 <Box id="body"
-                     sx={{display: 'flex', flexDirection: 'row', flexWrap: 'false', alignItems: 'flex-start'}}>
+                     sx={{
+                         display: 'flex', flexDirection: 'row', flexWrap: 'false', alignItems: 'flex-start',
+                         height: '100%'
+                     }}>
                     <LeftContentController>
 
                     </LeftContentController>
