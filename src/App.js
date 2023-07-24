@@ -19,7 +19,6 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import makeStyles from '@mui/styles/makeStyles';
 import LeftContentController from "./components/LeftContent/LeftContentController";
 import qs from 'qs'
-import tinycolor from "tinycolor2";
 import AuthToolbar from "./components/AuthToolbar";
 import {connect} from "react-redux";
 import {changeTab, changeUser} from "./redux/actions";
@@ -36,7 +35,6 @@ import MuiDrawer from '@mui/material/Drawer';
 
 const drawerWidth = 240;
 
-console.log(tinycolor("#ff33dd"))
 
 const useStyles = makeStyles((theme) => {
     console.log(theme)

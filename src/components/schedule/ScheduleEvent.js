@@ -1,8 +1,7 @@
 import React from "react";
 import './ScheduleEvent.css'
 import {HOUR_HEIGHT} from "../../constants/style";
-import tinycolor2 from "tinycolor2";
-
+import isDarkColor from 'is-dark-color'
 
 //This is in charge of calling the css ScheduleEvent.css that contains the information for the set up
 //This also recieves the color, title , subtitle information 
@@ -10,7 +9,6 @@ import tinycolor2 from "tinycolor2";
 //TODO: Edit this to make it nicer. Even though the color and those properties should be somewhere else
 const ScheduleEvent = ({lengthInMinutes, color, title, subtitle, topOffset, opacity = 1, campus}) => {
     let campusText = campus
-    console.log(tinycolor2);
     switch (campus) {
         case 'VIRTUAL':
             //campusText = 'VIRTUAL'
@@ -34,7 +32,7 @@ const ScheduleEvent = ({lengthInMinutes, color, title, subtitle, topOffset, opac
                  }
              }>
             <h4 className="stickerTitle">{title + " " + campusText}</h4>
-            <p className={"stickerSubtitle " + ((tinycolor2.default(color).isDark()) ? 'darkmodetext' : '')}>{subtitle}</p>
+            <p className={"stickerSubtitle " + (isDarkColor(color) ? 'darkmodetext' : '')}>{subtitle}</p>
             {/*<p className="campus">{campusText}</p>*/}
         </div>
     )
