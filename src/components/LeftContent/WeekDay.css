@@ -24,8 +24,10 @@ ul#menu {
 #menu li {
     box-sizing: border-box;
     display: inline;
-    padding: 6px 0.5rem;
+    padding: 4px 0.5rem;
     border: 1px solid #1976d2;
+    font-size: 0.8125rem;
+    text-align: center;
     z-index: 2;
     width: 100%;
 

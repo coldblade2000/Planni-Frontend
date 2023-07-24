@@ -27,15 +27,13 @@ const renderSticker = (stickerObject, initialscheduleHour) => {
     const topValue = HOUR_HEIGHT * (beginTimeInMinutes - initialscheduleHour * 60) / 60
     //console.log(topValue)
     let durationMins = ((endHour * 60 + endMinute) - (beginHour * 60 + beginMinute))
-    if (stickerObject.isHighlight) {
-        stickerObject.opacity = 0.5
-    }
+
     return <ScheduleEvent key={stickerObject['CRN']}
                           lengthInMinutes={durationMins}
                           topOffset={topValue}
                           title={stickerObject.title}
                           subtitle={stickerObject.subtitle}
-                          opacity={stickerObject.opacity}
+                          isHighlight={stickerObject.isHighlight}
                           campus={stickerObject.campus}
                           color={stickerObject.color}/>
 }

@@ -117,6 +117,7 @@ const PlanToolbar = ({user, selectedNewPlan, currentSelectedPlan, changeUser}) =
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
+                        size="small"
                         value={(currentSelectedPlan && currentSelectedPlan._id) || ''}
                         className={classes.planText}
                         onChange={handleChange}

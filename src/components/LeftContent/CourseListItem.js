@@ -103,7 +103,7 @@ const CourseListItem = (props) => {
 
         <Card variant="outlined" className={classes.card} onMouseEnter={handleStartHover} onMouseLeave={handleEndHover}
               sx={{flexDirection: 'row', display: 'flex'}}>
-            <CardContent className={classes.root} sx={{padding: '0px'}}>
+            <CardContent className={classes.root} sx={{padding: '0px', flexGrow: 1}}>
                 <div className={classes.content}>
                     <Typography variant="h6" className={classes.courseTitle}
                                 sx={{fontWeight: '800', fontSize: '1rem'}}

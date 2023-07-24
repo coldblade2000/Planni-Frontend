@@ -19,6 +19,7 @@
 
 .contentHalf p {
     font-size: 0.875rem;
+    margin: 2px 0;
     display: inline-block;
 }
 
