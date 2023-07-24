@@ -14,4 +14,4 @@ services:
       - red_planni
 
 networks:
-  red_interna: { }
+  red_planni: { }
