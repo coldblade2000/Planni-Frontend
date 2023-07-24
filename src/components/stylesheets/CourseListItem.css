@@ -23,6 +23,33 @@
     display: inline-block;
 }
 
+.contentHalf .clipboardText p {
+    font-size: 0.875rem;
+    margin: 2px 0;
+    display: inline-block;
+    border-bottom: 1px solid transparent;
+    transition: all .3s;
+    color: black;
+}
+
+@keyframes glow {
+    0% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: #9c27b088;
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+.active {
+    animation-name: glow;
+    animation-duration: 0.7s;
+    animation-direction: normal;
+}
+
 .activeWeekDaysPilbox {
     width: 100%;
 }

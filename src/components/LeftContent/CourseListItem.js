@@ -9,6 +9,7 @@ import '../stylesheets/CourseListItem.css';
 import {getListItemSeats, getToken} from "../../model/networking";
 import ReplayIcon from '@mui/icons-material/Replay';
 import WeekDaysPillbox from "./WeekDaysPillbox";
+import {ClipboardIcon, ClipboardText} from "./ClipboardText";
 
 
 /**
@@ -106,19 +107,20 @@ const CourseListItem = (props) => {
             <CardContent className={classes.root} sx={{padding: '0px', flexGrow: 1}}>
                 <div className={classes.content}>
                     <Typography variant="h6" className={classes.courseTitle}
-                                sx={{fontWeight: '800', fontSize: '1rem'}}
+                                sx={{fontWeight: '800', fontSize: '1rem', verticalAlign: 'middle'}}
                     >
                         {COURSE.courseTitle}
+                        <ClipboardIcon course={COURSE} primaryTeacherName={primaryTeacherName}/>
                     </Typography>
                     <div className='halfContainer'>
                         <div className="contentHalf">
-                            <p className={classes.courseIdentifier}>{COURSE.courseIdentifier}</p>
-                            <p className={classes.CRN}>CRN: {COURSE._id}</p>
+                            <ClipboardText copyText={COURSE.courseIdentifier}>{COURSE.courseIdentifier}</ClipboardText>
+                            <ClipboardText copyText={COURSE.CRN}>CRN: {COURSE._id}</ClipboardText>
                             <p className={classes.campusDescription}>{COURSE.campusDescription}</p>
                             <p className={classes.sectionNumber}>Seccion: {COURSE.sectionNumber}</p>
                         </div>
                         <div className="contentHalf">
-                            <p>{primaryTeacherName}</p>
+                            <ClipboardText copyText={primaryTeacherName}>{primaryTeacherName}</ClipboardText>
                             <p className={parseInt(seatsLeft) <= 0 ? "emptyClass" : undefined}>Seats: {`${seatsLeft <= 0 ? 0 : seatsLeft}/${maxSeats}`}
                                 <IconButton onClick={updateSeats} size="large"><ReplayIcon/></IconButton>
                             </p>
