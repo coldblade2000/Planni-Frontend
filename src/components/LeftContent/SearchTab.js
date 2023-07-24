@@ -6,7 +6,7 @@ import axios from "axios";
 import {BACKEND_ADDRESS} from "../../constants/model";
 import {courseSearchCompleted} from "../../redux/actions";
 import {isEmpty} from "../../model/processing";
-import {Divider} from "@mui/material";
+import {CssBaseline, Divider} from "@mui/material";
 
 const SearchTab = (props) => {
     //const classes = useStyles();
@@ -47,6 +47,7 @@ const SearchTab = (props) => {
 
     return (
         <div>
+            <CssBaseline/>
             <SearchPanel onSubmitSearch={onSubmitSearch}/>
             <Divider/>
             <CourseList usesSearch={true}/>

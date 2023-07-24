@@ -116,7 +116,8 @@ const SearchPanel = (props) => {
                        value={CRN}
                        onChange={e => setCRN(e.target.value)}
             />
-            <ButtonGroup size='small' aria-label="outlined primary button group" className='marginalized-elem'>
+            <ButtonGroup size='small' fullWidth={true} aria-label="outlined primary button group"
+                         className='marginalized-elem'>
                 {renderDaysBG()}
             </ButtonGroup>
 
